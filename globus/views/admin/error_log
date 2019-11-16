@@ -1,0 +1,3 @@
+[07-Aug-2019 07:25:38 America/Chicago] PHP Warning:  mysqli::mysqli(): (28000/1045): Access denied for user 'root'@'localhost' (using password: NO) in /home/ikizere/globusweb.com/globus/core/db.php on line 17
+[08-Sep-2019 17:42:23 America/Chicago] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/ikizere/globusweb.com/globus/views/admin/header.php:135) in /home/ikizere/globusweb.com/globus/views/admin/subcategory.php on line 3
+[08-Sep-2019 17:43:19 America/Chicago] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/ikizere/globusweb.com/globus/views/admin/header.php:135) in /home/ikizere/globusweb.com/globus/views/admin/subcategory.php on line 3
