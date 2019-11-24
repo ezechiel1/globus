@@ -9,7 +9,7 @@ if(window.XMLHttpRequest){
                 //the functionS 
                 function getSubCategory(){
                   if(XMLHttpRequestObject){
-                    XMLHttpRequestObject.open("POST","getSubCategory.php");
+                    XMLHttpRequestObject.open("POST","getSubCategoryAdmin.php");
                     XMLHttpRequestObject.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
                     XMLHttpRequestObject.onreadystatechange=function(){
 
