@@ -53,7 +53,7 @@
                                 </tr>
       <?php
  
-    $getComp=$db->getIts('seller',$_SESSION['ID']);
+    $getComp=$db->getIt('seller',$_SESSION['ID']);
     if(!empty($getComp)):
         $count=0;
         foreach($getComp as $show):

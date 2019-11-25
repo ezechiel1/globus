@@ -205,7 +205,7 @@ endif;
                 <option value="usd">£ UKP</option>
                 <option value="usd">€ EUR</option>
               </select>
-            </div><a class="dropdown-item" href="#"><img src="../img/flags/Rw.png" alt="Rwanda">Rwanda</a><a class="dropdown-item" href="#"><img src="../img/flags/DE.png" alt="Deutsch">Deutsch</a><a class="dropdown-item" href="#"><img src="../img/flags/IT.png" alt="Italiano">Italiano</a>
+            </div><a class="dropdown-item" href="#"><img src="img/flags/Rw.png" alt="Rwanda">Rwanda</a><a class="dropdown-item" href="#"><img src="img/flags/DE.png" alt="Deutsch">Deutsch</a><a class="dropdown-item" href="#"><img src="img/flags/IT.png" alt="Italiano">Italiano</a>
           </div>
         </div>
       </div>
@@ -244,7 +244,7 @@ if(!empty($allCategory)):
     foreach($allCategory as $showCategory): 
         $count++; 
 ?>
-              <li><a class="d-block img-thumbnail text-center navi-link" href="views/shop-products.php?Category=<?php echo urlencode(trim($showCategory['category_name']))?>&ct=<?php echo $showCategory['categoryID'];?>"><img style="width: 100%; height: 60%;" alt="<?php echo 'globus/'.substr($showCategory['category_picture1'],6);?>" src="<?php echo 'globus/'.substr($showCategory['category_picture'],6);?>">
+              <li><a class="d-block img-thumbnail text-center navi-link" href="views/shop-products.php?Category=<?php echo urlencode(trim($showCategory['category_name']))?>&ct=<?php echo $showCategory['categoryID'];?>"><img style="width: 100%; height: 60%;" alt="<?php echo 'globus/'.substr($showCategory['category_picture1'],6);?>" src="<?php echo 'globus/'.substr($showCategory['category_picture1'],6);?>">
                   <h6 class="mt-3"><?php echo $showCategory['category_name'];?></h6></a>
               </li>
 <?php
