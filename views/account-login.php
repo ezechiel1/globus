@@ -54,45 +54,60 @@
             <div class="padding-top-3x hidden-md-up"></div>
             <h3 class="margin-bottom-1x">No Account? Register</h3>
             <p>Registration takes less than a minute but gives you full control over your orders.</p>
-            <form class="row" method="post">
+            <form class="row" method="post" action="../class/clientController.php" enctype="multipart/form-data">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="reg-fn">Profile</label>
+                  <input class="form-control" type="file" id="reg-fn" name="profile" style="padding-top: 6px;" required>
+                </div>
+              </div>
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="reg-fn">First Name</label>
-                  <input class="form-control" type="text" id="reg-fn" required>
+                  <input class="form-control" type="text" id="reg-fn" name="fname" required>
                 </div>
               </div>
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="reg-ln">Last Name</label>
-                  <input class="form-control" type="text" id="reg-ln" required>
+                  <input class="form-control" type="text" id="reg-ln" name="lname" required>
                 </div>
               </div>
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="reg-email">E-mail Address</label>
-                  <input class="form-control" type="email" id="reg-email" required>
+                  <input class="form-control" type="email" id="reg-email" name="email" required>
                 </div>
               </div>
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="reg-phone">Phone Number</label>
-                  <input class="form-control" type="text" id="reg-phone" required>
+                  <input class="form-control" type="text" id="reg-phone" name="phone" required>
                 </div>
               </div>
               <div class="col-sm-6">
                 <div class="form-group">
+                  <label for="reg-phone">Sex</label>
+                <select class="form-control" type="text" id="reg-phone" name="sex" required> 
+                      <option value="1">Male</option>
+                      <option value="2">Female</option>
+                </select>
+                 </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
                   <label for="reg-pass">Password</label>
-                  <input class="form-control" type="password" id="reg-pass" required>
+                  <input class="form-control" type="password" id="reg-pass" name="password" required>
                 </div>
               </div>
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="reg-pass-confirm">Confirm Password</label>
-                  <input class="form-control" type="password" id="reg-pass-confirm" required>
+                  <input class="form-control" type="password" id="reg-pass-confirm" name="confirm" required>
                 </div>
               </div>
               <div class="col-12 text-center text-sm-right">
-                <button class="btn btn-primary margin-bottom-none" type="submit">Register</button>
+                <button class="btn btn-primary margin-bottom-none" type="submit" name="AddClient">Register</button>
               </div>
             </form>
           </div>
