@@ -62,7 +62,7 @@
 
                                 <tr>
                                     <td><?php echo '#'.$count;?></td>
-                                    <td> <img src="<?php echo $show['it_profil'];?>" class="col-md-12" /></td>
+                                    <td> <img src="<?php echo $show['photoprofile'];?>" class="col-md-12" /></td>
                                     <td><?php echo $show['it_fname'].' '.$show['it_lname'];?></td>
                                     <td><?php echo $show['it_phone'];?></td>
                                     <td><?php echo $show['it_city'];?></td>

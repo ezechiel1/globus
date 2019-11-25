@@ -13,7 +13,7 @@
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="review-tab-pro-inner">
                                 <ul id="myTab3" class="tab-review-design">
-                                    <li class="active"><a href="#description"><i class="fa fa-pencil" aria-hidden="true"></i> Product Edit</a></li>
+                                    <li class="active"><a href="#description"><i class="fa fa-pencil" aria-hidden="true"></i>  Product Edit</a></li>
                                     
                                     <small><strong class="pull-right text-success"><?php
                                     $sssData=array();
@@ -42,18 +42,11 @@
                                                     <select required="" name="product_category" id="categoryID" onchange="getSubCategory();" required="" class="form-control pro-edt-select form-control-primary" style="margin-top: 15px !important;">
                                                         <!-- <option value="" hidden="">Product-Category</option> -->
                                                     <?php
-$tblName='category';
-$condition=array( 'Order by' => 'categoryID asc', 'where' => array('categoryID' => $categoryID) );
-$allCategory=$db->getRows($tblName,$condition);
-if(!empty($allCategory)):
-    foreach($allCategory as $showC): 
-?>
-                                                            <option value="<?php echo $showC['categoryID'];?>"><?php echo $showC['category_name'];?></option>
-<?php
-    endforeach;
-endif;
-?>
-
+$getCt=$db->getRows('category', array('where'=>array('categoryID'=>$categoryID)));
+if(!empty($getCt)): foreach($getCt as $getCat):
+?>          
+                                            <option value="<?=$getCat['categoryID']?>"><?=$getCat['category_name']?></option>
+<?php endforeach; endif;?>
                                                     </select>
                                                     <span id="getSubCat">
                                                     <select required="" name="product_sub_category" required="" class="form-control pro-edt-select form-control-primary" style="margin-top: 15px !important;">
