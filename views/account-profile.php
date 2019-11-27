@@ -30,54 +30,78 @@
               <div class="user-cover" style="background-image: url(../img/account/user-cover-img.jpg);">
                 <div class="info-label" data-toggle="tooltip" title="You currently have 290 Reward Points to spend"><i class="icon-medal"></i>290 points</div>
               </div>
-              <div class="user-info">
-                <div class="user-avatar"><a class="edit-avatar" href="#"></a><img src="../img/account/user-ava.jpg" alt="User"></div>
+<?php 
+if($_SESSION['sessData']!=''):
+  $table='client';
+  $condition= array('where' => array('clientID'=>$_SESSION['ClientID']));
+  $select=$db->getRows($table,$condition);
+  if (!empty($select)):
+    foreach ($select as $key):
+?>
+            <div class="user-info">
+                <div class="user-avatar"><a class="edit-avatar" href="#"></a><img src="<?php echo '../img/client/'.$key['client_profil'];?>" alt="User"></div>
                 <div class="user-data">
-                  <h4>Daniel Adams</h4><span>Joined February 06, 2017</span>
+                  <h4><?=$key['client_fname'].' '.$key['client_lname']?></h4><span>Joined <?=$key['c_date']?></span>
                 </div>
-              </div>
+              </div>  
+
             </aside>
-            <nav class="list-group"><a class="list-group-item with-badge" href="account-orders.php"><i class="icon-bag"></i>Orders<span class="badge badge-primary badge-pill">6</span></a><a class="list-group-item active" href="account-profile.php"><i class="icon-head"></i>Profile</a><a class="list-group-item" href="account-address.php"><i class="icon-map"></i>Addresses</a><a class="list-group-item with-badge" href="account-wishlist.php"><i class="icon-heart"></i>Wishlist<span class="badge badge-primary badge-pill">3</span></a><a class="list-group-item with-badge" href="account-tickets.php"><i class="icon-tag"></i>My Tickets<span class="badge badge-primary badge-pill">4</span></a></nav>
+            <nav class="list-group"><a class="list-group-item with-badge" href="account-orders.php"><i class="icon-bag"></i>Orders<span class="badge badge-primary badge-pill">6</span></a><a class="list-group-item active" href="account-profile.php"><i class="icon-head"></i>Profile</a><a class="list-group-item with-badge" href="account-wishlist.php"><i class="icon-heart"></i>Wishlist<span class="badge badge-primary badge-pill">3</span></a></nav>
           </div>
+
           <div class="col-lg-8">
-            <div class="padding-top-2x mt-2 hidden-lg-up"></div>
-            <form class="row">
+            <div class="padding-top-2x mt-2 hidden-lg-up">
+                          <strong style="font-size: 20px;"><small class="pull-right text-success">
+<?php
+      if(!isset($_SESSION['sessDataClient'])): $_SESSION['sessDataClient']='';
+      else:
+          $sessData=array();
+          if($_SESSION['sessDataClient']!=''):
+              $sessData=$_SESSION['sessDataClient'];
+              if($sessData!=''): echo $sessData['status']['msg'];
+              endif;
+          endif;
+      endif;
+?>
+
+                                   </small></strong>
+            </div>
+            <form class="row" method="POST" action="../class/clientController.php">
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="account-fn">First Name</label>
-                  <input class="form-control" type="text" id="account-fn" value="Daniel" required>
+                  <input class="form-control" type="text" name="fname" id="account-fn" value="<?=$key['client_fname']?>" required>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="account-ln">Last Name</label>
-                  <input class="form-control" type="text" id="account-ln" value="Adams" required>
+                  <input class="form-control" type="text" name="lname" id="account-ln" value="<?=$key['client_lname']?>" required>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="account-email">E-mail Address</label>
-                  <input class="form-control" type="email" id="account-email" value="daniel.adams@mail.com" disabled>
+                  <input class="form-control" type="email" name="email" id="account-email" value="<?=$key['client_email']?>" required>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="account-phone">Phone Number</label>
-                  <input class="form-control" type="text" id="account-phone" value="+7(805) 348 95 72" required>
+                  <input class="form-control" type="text" name="phone" id="account-phone" value="<?=$key['client_phone']?>" required>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="account-pass">New Password</label>
-                  <input class="form-control" type="password" id="account-pass">
+                  <label for="account-pass">Sex</label>
+                  <select class="form-control" name="sex" id="account-pass">
+                    <option value="<?=$key['client_gender']?>"><?php $v=$key['client_gender'];if($v==1)echo'Male';else echo'Female';?></option>
+                        <option value="1">Male</option>
+                        <option value="2">Female</option>
+                  </select>
                 </div>
               </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="account-confirm-pass">Confirm Password</label>
-                  <input class="form-control" type="password" id="account-confirm-pass">
-                </div>
-              </div>
+              
               <div class="col-12">
                 <hr class="mt-2 mb-3">
                 <div class="d-flex flex-wrap justify-content-between align-items-center">
@@ -85,11 +109,14 @@
                     <input class="custom-control-input" type="checkbox" id="subscribe_me" checked>
                     <label class="custom-control-label" for="subscribe_me">Subscribe me to Newsletter</label>
                   </div>
-                  <button class="btn btn-primary margin-right-none" type="button" data-toast data-toast-position="topRight" data-toast-type="success" data-toast-icon="icon-circle-check" data-toast-title="Success!" data-toast-message="Your profile updated successfuly.">Update Profile</button>
+                  <input class="form-control"  hidden="" name="id" value="<?=$key['clientID']?>" >
+                  <button class="btn btn-primary margin-right-none" type="submit" name="UpdateClient" data-toast data-toast-position="topRight" data-toast-type="success" data-toast-icon="icon-circle-check" data-toast-title="Success!" data-toast-message="Your profile updated successfuly.">Update Profile</button>
                 </div>
               </div>
             </form>
           </div>
+<?php endforeach;endif;endif;?>
+
         </div>
       </div>
       <!-- Site Footer-->
@@ -180,6 +207,6 @@
     <!-- Customizer scripts-->
     <script src="../customizer/customizer.min.js"></script>
   </body>
-
+<?php $_SESSION['sessData']='';?>
 <!-- Mirrored from themes.rokaux.com/unishop/v3.0/template-1/account-profile.php by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 03 Jun 2019 09:17:16 GMT -->
 </html>

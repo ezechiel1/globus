@@ -8,6 +8,9 @@ $db = new DB();
 //load and initialize Extra class
 require_once '../globus/core/extra.php';
 $extra = new Extra();
+//handle client session 
+if(!isset($_SESSION['sessData'])): $_SESSION['sessData']='';
+endif;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -135,12 +138,26 @@ endif;
       </nav>
     </div>
     <!-- Off-Canvas Mobile Menu-->
-    <div class="offcanvas-container" id="mobile-menu"><a class="account-link" href="account-orders.php">
-        <div class="user-ava"><img src="../img/account/user-ava-md.jpg" alt="Daniel Adams">
+    <div class="offcanvas-container" id="mobile-menu"><?php 
+if($_SESSION['sessData']!=''):
+  $table='client';
+  $condition= array('where' => array('clientID'=>$_SESSION['ClientID']));
+  $select=$db->getRows($table,$condition);
+  if (!empty($select)):
+    foreach ($select as $key):
+?>
+      <a class="account-link" href="account-orders.php">
+        <div class="user-ava"><img src="<?='../img/client/'.$key['client_profil']?>" alt="Ns. Olivier">
         </div>
         <div class="user-info">
-          <h6 class="user-name">Daniel Adams</h6><span class="text-sm text-white opacity-60">290 Reward points</span>
-        </div></a>
+          <h6 class="user-name"><?=$key['client_fname'].' '.$key['client_lname']?></h6>
+        </div>
+      </a>
+<?php
+endforeach;
+endif;
+endif;
+?>
           <nav class="offcanvas-menu">
             <ul class="menu">
               <li class="has-children"><span><a href="#">Art & furniture</a><span class="sub-menu-toggle"></span></span>
@@ -234,7 +251,7 @@ if(!empty($allCategory)):
     foreach($allCategory as $showCategory): 
         $count++; 
 ?>
-             <li><a class="d-block img-thumbnail text-center navi-link" href="shop-products.php?Category=<?php echo urlencode(trim($showCategory['category_name']))?>&ct=<?php echo $showCategory['categoryID'];?>"><img style="width: 100%; height: 60%;" alt="<?php echo $showCategory['category_name'];?>" src="<?php echo '../globus/'.substr($showCategory['category_picture'],6);?>">
+             <li><a class="d-block img-thumbnail text-center navi-link" href="shop-products.php?Category=<?php echo urlencode(trim($showCategory['category_name']))?>&ct=<?php echo $showCategory['categoryID'];?>"><img style="width: 100%; height: 60%;" alt="<?php echo $showCategory['category_name'];?>" src="<?php echo '../globus/'.substr($showCategory['category_picture1'],6);?>">
                   <h6 class="mt-3"><?php echo $showCategory['category_name'];?></h6></a>
               </li>
 <?php
@@ -430,23 +447,41 @@ endif;
         <div class="inner">
           <div class="tools">
             <div class="search"><i class="icon-search"></i></div>
-            <div class="account"><a href="account-orders.php"></a><i class="icon-head"></i>
+            <div class="account"><a href="#"></a><i class="icon-head"></i>
+              <?php 
+if($_SESSION['sessData']!=''):
+  $table='client';
+  $condition= array('where' => array('clientID'=>$_SESSION['ClientID']));
+  $select=$db->getRows($table,$condition);
+  if (!empty($select)):
+    foreach ($select as $key):
+?>
               <ul class="toolbar-dropdown">
                 <li class="sub-menu-user">
-                  <div class="user-ava"><img src="../img/account/user-ava-sm.jpg" alt="Olivier.Ns">
+                  <div class="user-ava"><img src="<?php echo '../img/client/'.$key['client_profil'];?>" alt="Olivier.Ns">
                   </div>
                   <div class="user-info">
-                    <h6 class="user-name">Olivier.Ns</h6><span class="text-xs text-muted">290 Reward points</span>
+                    <h6 class="user-name"><?=$key['client_fname'].' '.$key['client_lname']?></h6>
                   </div>
                 </li>
                   <li><a href="../views/account-profile.php">My Profile</a></li>
                   <li><a href="../views/account-orders.php">Orders List</a></li>
                   <li><a href="../views/account-wishlist.php">Wishlist</a></li>
                 <li class="sub-menu-separator"></li>
-                <li><a href="#"> <i class="icon-unlock"></i>Logout</a></li>
+                <li><a href="../class/login.php?request=logout"> <i class="icon-unlock"></i>Logout</a></li>
               </ul>
+<?php endforeach;endif;else: ?>
+              <ul class="toolbar-dropdown">
+                <li class="sub-menu-separator"></li>
+                <li><a href="account-login.php"> <i class="icon-unlock"></i>Login</a></li>
+              </ul>
+<?php endif;?>
             </div>
-            <div class="cart"><a href="cart.php"></a><i class="icon-bag"></i><span class="count">3</span><span class="subtotal">$289.68</span>
+            <div class="cart"><a href="cart.php"></a><i class="icon-bag"></i>
+ <?php 
+if($_SESSION['sessData']!=''):
+?>
+              <span class="count">3</span><span class="subtotal">$289.68</span>
               <div class="toolbar-dropdown">
                 <div class="dropdown-product-item"><span class="dropdown-product-remove"><i class="icon-cross"></i></span><a class="dropdown-product-thumb" href="shop-single.php"><img src="../img/cart-dropdown/01.jpg" alt="Product"></a>
                   <div class="dropdown-product-info"><a class="dropdown-product-title" href="shop-single.php">Unionbay Park</a><span class="dropdown-product-details">1 x $43.90</span></div>
@@ -466,6 +501,12 @@ endif;
                   <div class="column"><a class="btn btn-sm btn-block btn-success" href="checkout-address.php">Checkout</a></div>
                 </div>
               </div>
+<?php else: ?>   
+              <span class="count">0</span><span class="subtotal">$0.00</span>
+<?php endif;?>
+              
+
+
             </div>
           </div>
         </div>

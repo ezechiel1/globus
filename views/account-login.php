@@ -26,7 +26,7 @@
       <div class="container padding-bottom-3x mb-2">
         <div class="row">
           <div class="col-md-6">
-            <form class="login-box" method="post">
+            <form class="login-box" method="post" action="../class/login.php" enctype="multipart/form-data">
               <div class="row margin-bottom-1x">
                 <div class="col-xl-4 col-md-6 col-sm-4"><a class="btn btn-sm btn-block facebook-btn" href="#"><i class="socicon-facebook"></i>&nbsp;Facebook login</a></div>
                 <div class="col-xl-4 col-md-6 col-sm-4"><a class="btn btn-sm btn-block twitter-btn" href="#"><i class="socicon-twitter"></i>&nbsp;Twitter login</a></div>
@@ -34,10 +34,10 @@
               </div>
               <h4 class="margin-bottom-1x">Or using form below</h4>
               <div class="form-group input-group">
-                <input class="form-control" type="email" placeholder="Email" required><span class="input-group-addon"><i class="icon-mail"></i></span>
+                <input class="form-control" type="email" placeholder="Email" name="email" required><span class="input-group-addon"><i class="icon-mail"></i></span>
               </div>
               <div class="form-group input-group">
-                <input class="form-control" type="password" placeholder="Password" required><span class="input-group-addon"><i class="icon-lock"></i></span>
+                <input class="form-control" type="password" placeholder="Password" name="password" required><span class="input-group-addon"><i class="icon-lock"></i></span>
               </div>
               <div class="d-flex flex-wrap justify-content-between padding-bottom-1x">
                 <div class="custom-control custom-checkbox">
@@ -46,13 +46,29 @@
                 </div><a class="navi-link" href="account-password-recovery.html">Forgot password?</a>
               </div>
               <div class="text-center text-sm-right">
-                <button class="btn btn-primary margin-bottom-none" type="submit">Login</button>
+                <button class="btn btn-primary margin-bottom-none" type="submit" name="Userlogin">Login</button>
               </div>
             </form>
           </div>
           <div class="col-md-6">
             <div class="padding-top-3x hidden-md-up"></div>
             <h3 class="margin-bottom-1x">No Account? Register</h3>
+
+            <strong style="font-size: 20px;"><small class="pull-right text-success">
+<?php
+      if(!isset($_SESSION['sessDataClient'])): $_SESSION['sessDataClient']='';
+      else:
+          $sessData=array();
+          if($_SESSION['sessDataClient']!=''):
+              $sessData=$_SESSION['sessDataClient'];
+              if($sessData!=''): echo $sessData['status']['msg'];
+              endif;
+          endif;
+      endif;
+?>
+
+                                   </small></strong>
+
             <p>Registration takes less than a minute but gives you full control over your orders.</p>
             <form class="row" method="post" action="../class/clientController.php" enctype="multipart/form-data">
               <div class="col-sm-6">
@@ -201,6 +217,6 @@
     <!-- Customizer scripts-->
     <script src="../customizer/customizer.min.js"></script>
   </body>
-
+<?php $_SESSION['sessDataClient']='';?>
 <!-- Mirrored from themes.rokaux.com/unishop/v3.0/template-1/account-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 03 Jun 2019 09:17:15 GMT -->
 </html>

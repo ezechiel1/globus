@@ -30,14 +30,23 @@
               <div class="user-cover" style="background-image: url(../img/account/user-cover-img.jpg);">
                 <div class="info-label" data-toggle="tooltip" title="You currently have 290 Reward Points to spend"><i class="icon-medal"></i>290 points</div>
               </div>
-              <div class="user-info">
-                <div class="user-avatar"><a class="edit-avatar" href="#"></a><img src="../img/account/user-ava.jpg" alt="User"></div>
+<?php 
+if($_SESSION['sessData']!=''):
+  $table='client';
+  $condition= array('where' => array('clientID'=>$_SESSION['ClientID']));
+  $select=$db->getRows($table,$condition);
+  if (!empty($select)):
+    foreach ($select as $key):
+?>
+            <div class="user-info">
+                <div class="user-avatar"><a class="edit-avatar" href="#"></a><img src="<?php echo '../img/client/'.$key['client_profil'];?>" alt="User"></div>
                 <div class="user-data">
-                  <h4>Daniel Adams</h4><span>Joined February 06, 2017</span>
+                  <h4><?=$key['client_fname'].' '.$key['client_lname']?></h4><span>Joined <?=$key['c_date']?></span>
                 </div>
-              </div>
+              </div>  
+<?php endforeach;endif;endif;?>
             </aside>
-            <nav class="list-group"><a class="list-group-item with-badge" href="account-orders.php"><i class="icon-bag"></i>Orders<span class="badge badge-primary badge-pill">6</span></a><a class="list-group-item" href="account-profile.php"><i class="icon-head"></i>Profile</a><a class="list-group-item" href="account-address.php"><i class="icon-map"></i>Addresses</a><a class="list-group-item with-badge active" href="account-wishlist.php"><i class="icon-heart"></i>Wishlist<span class="badge badge-primary badge-pill">3</span></a><a class="list-group-item with-badge" href="account-tickets.php"><i class="icon-tag"></i>My Tickets<span class="badge badge-primary badge-pill">4</span></a></nav>
+            <nav class="list-group"><a class="list-group-item with-badge" href="account-orders.php"><i class="icon-bag"></i>Orders<span class="badge badge-primary badge-pill">6</span></a><a class="list-group-item" href="account-profile.php"><i class="icon-head"></i>Profile</a><a class="list-group-item with-badge active" href="account-wishlist.php"><i class="icon-heart"></i>Wishlist<span class="badge badge-primary badge-pill">3</span></a></nav>
           </div>
           <div class="col-lg-8">
             <div class="padding-top-2x mt-2 hidden-lg-up"></div>
