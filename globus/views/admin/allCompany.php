@@ -59,7 +59,7 @@
 
                                 <tr>
                                     <td><?php echo '#'.$count;?></td>
-                                    <td> <img src="<?php echo '../../img/company/'.$show['company_picture'];?>" class="col-md-12" /></td>
+                                    <td> <img src="<?php echo '../../img/company/'.$show['company_picture'];?>" class="col-md-12"/></td>
                                     <td><?php echo $show['company_name'];?></td>
                                     <td><?php echo $show['country_name'];?></td>
                                     <td><?php echo $show['company_location'];?></td>

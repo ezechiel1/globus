@@ -19,7 +19,7 @@
                         <div class="sparkline13-list">
                             <div class="sparkline13-hd"><br class="hidden-xs hidden-sm"><br class="hidden-xs hidden-sm">
                                 <div class="main-sparkline13-hd">
-                                    <h1>All<span class="table-project-n">Suppliers</span>
+                                    <h1>All <span class="table-project-n">Suppliers</span>
                                         <small><strong class="pull-right text-success">
                                     <?php
                                     $sessData=array();
@@ -64,7 +64,7 @@ $tblName='supplier';
 $condition=array(
                     'Order by' => 'supplierID DESC'
                 );
-$allAdmin=$db->getRows($tblName,$condition);
+$allAdmin=$db->getCompanySupplier();
 //check if there are available data
 if(!empty($allAdmin)):
     $count = 0; 
@@ -79,7 +79,7 @@ if(!empty($allAdmin)):
                                                 <td><?php echo $show['supplier_fname'].' '.$show['supplier_lname'];?></td>
                                                 <td><?php echo $show['supplier_email'];?></td>
                                                 <td><?php echo $show['supplier_phone'];?></td>
-                                                <td><?php echo $show['supplier_country'];?></td>
+                                                <td><?php echo $show['country_name'];?></td>
                                                 <td><?php echo $show['supplier_location'];?></td>
                                                 <td><?php if($show['supplier_status']==0) echo 'Desactivated'; else echo 'Activated';?></td>
                                                 <td>
@@ -115,7 +115,7 @@ if(!empty($allAdmin)):
           <div class="modal-header"><p class="modal-title" id="exampleModalLabel">Globus~System <span class="text-muted"> | Reset The Password</span></p></div>
           <div class="modal-body">
            <div class="" style="padding-right: 10px;padding-left: 10px;">
-              <form method="post" action="../../class/supplierController.php" class="form-group" style="shape-margin: 20px;">
+              <form method="post" action="../../class/SupplierController.php" class="form-group" style="shape-margin: 20px;">
                 <center><label>Do you want to Reset The Password of this Agent : <?php echo $show['supplier_fname'].' '.$show['supplier_lname'];?>?</label><br>
                 <input type="text" hidden="" value="<?php echo $show['supplierID'];?>" name="deleteform">
                 <button class="btn btn-secondary btn-default" type="button" data-dismiss="modal">Cancel</button>

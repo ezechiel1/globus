@@ -65,7 +65,7 @@ if(!empty($allAdmin)):
                                             <tr>
                                                 <td></td>
                                                 <td><?php echo '#'.$count;?></td>
-                                                <td><?php echo $show['client_fname'].' '.$show['admin_lname'];?></td>
+                                                <td><?php echo $show['client_fname'].' '.$show['client_lname'];?></td>
                                                 <td><?php echo $show['client_email'];?></td>
                                                 <td><?php echo $show['client_phone'];?></td>
                                                 <td><?php echo $show['client_location'];?></td>
@@ -74,6 +74,7 @@ if(!empty($allAdmin)):
                                                 <td>
                             <a href="" class="glyphicon glyphicon-pencil text-primary" data-toggle="modal" <?php  echo 'data-target="#edit'.$show['clientID'].'ers"'; ?>></a>  
                              <a href="" class="glyphicon glyphicon-remove text-danger" data-toggle="modal" <?php  echo 'data-target="#remove'.$show['clientID'].'ers"'; ?>></a>
+                             <a href="" class="btn btn-danger btn-xs text-danger" data-toggle="modal" <?php  echo 'data-target="#reset'.$show['clientID'].'ers"'; ?>><small>Reset</small></a>
                           </td>
                                             </tr>
 
@@ -81,14 +82,32 @@ if(!empty($allAdmin)):
 <div class="modal fade"  <?php  echo 'id="remove'.$show['clientID'].'ers"';?> tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <div class="modal-header"><p class="modal-title" id="exampleModalLabel">Globus~System <span class="text-muted"> | Deletion of Admin Account</span></p></div>
+          <div class="modal-header"><p class="modal-title" id="exampleModalLabel">Globus~System <span class="text-muted"> | Deletion of Client Account</span></p></div>
           <div class="modal-body">
            <div class="" style="padding-right: 10px;padding-left: 10px;">
               <form method="post" action="" class="form-group" style="shape-margin: 20px;">
-                <center><label>Souhaitez Vous Supprimer Cet Aministrateur: <?php echo $show['admin_fname'].' '.$show['admin_lname'];?>?</label><br>
-                <input type="text" hidden="" value="<?php echo $show['adminID'];?>" name="deletefrom">
+                <center><label>Do you want to delete this Account: <?php echo $show['client_fname'].' '.$show['client_lname'];?>?</label><br>
+                <input type="text" hidden="" value="<?php echo $show['clientID'];?>" name="deletefrom">
                 <button class="btn btn-secondary btn-default" type="button" data-dismiss="modal">Cancel</button>
                 <input type="submit" class="btn btn-sm btn-danger" name="delete" value="Delete"></center>
+            </form>
+           </div>
+          </div>
+        </div>
+      </div>
+    </div>
+        <!-- Reset the Password -->
+    <div class="modal fade"  <?php  echo 'id="reset'.$show['clientID'].'ers"';?> tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header"><p class="modal-title" id="exampleModalLabel">Globus~System <span class="text-muted"> | Reset The Password</span></p></div>
+          <div class="modal-body">
+           <div class="" style="padding-right: 10px;padding-left: 10px;">
+              <form method="post" action="../../class/itTeamControl.php" class="form-group" style="shape-margin: 20px;">
+                <center><label>Do you want to Reset The Password of this Ambassador: <?php echo $show['client_fname'].' '.$show['client_lname'];?>?</label><br>
+                <input type="text" hidden="" value="<?php echo $show['clientID'];?>" name="deleteform">
+                <button class="btn btn-secondary btn-default" type="button" data-dismiss="modal">Cancel</button>
+                <input type="submit" class="btn btn-sm btn-danger" name="reset" value="Reset Password"></center>
             </form>
            </div>
           </div>

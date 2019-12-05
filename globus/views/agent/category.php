@@ -20,10 +20,10 @@ $all=$db->iCategory();
                         <div class="hpanel blog-box mg-t-30">
                             <div class="panel-heading custom-blog-hd">
                                 <div class="media clearfix">
-                                    <a class="pull-left" href="a.php">
-											<img class="img-circle" src="../../img/contact/1.jpg" alt="profile-picture">
+                                    <a class="pull-left" href="subcategory.php?Category=<?php echo $show['category_name']?>&ct=<?php echo $show['categoryID'];?>">
+											<img class="img-circle" style="width: 76px; height: 76px;" src="<?=$show['category_picture1']?>" alt="profile-picture">
 										</a>
-                                    <div class="media-body blog-std"><a href="a.php" class="">
+                                    <div class="media-body blog-std"><a href="subcategory.php?Category=<?php echo $show['category_name']?>&ct=<?php echo $show['categoryID'];?>" class="">
                                         <strong><span class=""><B style="color: black;"><?php echo $show['category_name'];?></B></span></strong>
                                         <p class="text-muted">SubCategory: <span class="font-bold text-primary"><B><?php echo $totSub; ?></B></span> </p>
                                         <p class="text-muted">Date : <span class="font-bold text-primary"><B><?php echo $show['cdate'];?></B></p>

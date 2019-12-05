@@ -207,6 +207,5 @@ if($_SESSION['sessData']!=''):
     <!-- Customizer scripts-->
     <script src="../customizer/customizer.min.js"></script>
   </body>
-<?php $_SESSION['sessData']='';?>
 <!-- Mirrored from themes.rokaux.com/unishop/v3.0/template-1/account-profile.php by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 03 Jun 2019 09:17:16 GMT -->
 </html>

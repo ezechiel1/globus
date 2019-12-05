@@ -75,9 +75,7 @@ if(!empty($allAmbassador)):
         $allCountryName=$db->getRows($tblName,$condition);
         if(!empty($allCountryName)):
             foreach($allCountryName as $showCountryname): 
-         endforeach;
-        endif;
-
+                
 ?>
                                             <tr>
                                                 <td></td>
@@ -86,7 +84,7 @@ if(!empty($allAmbassador)):
                                                 <td><?php echo $show['ambassador_email'];?></td>
                                                 <td><?php echo $show['ambassador_phone'];?></td>
                                                 <td><?php echo $show['ambassador_location'];?></td>
-                                                <td><?php echo $showCountryname['country_name'];?></td>
+                                                <td><?php  echo $showCountryname['country_name'];?></td>
                                                 <td><?php if($show['ambassador_status']==0) echo 'Desactivated'; else echo 'Activated';?></td>
                                                 <td>
                             <a href="" class="glyphicon glyphicon-pencil text-primary" data-toggle="modal" <?php  echo 'data-target="#edit'.$show['ambassadorID'].'ers"'; ?>></a>  
@@ -202,6 +200,7 @@ endif;
 <?php
 endforeach;
 endif;
+endforeach;endif;
 ?>
                                         </tbody>
                                     </table>

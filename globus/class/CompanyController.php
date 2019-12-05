@@ -48,6 +48,9 @@ if(isset($_POST['addCompany']))
                 if($code==1): $redirectURL .= 'admin/addCompany.php'; 
                 elseif($code==2): $redirectURL .= 'ambassador/addCompany.php';
                 elseif($code==3): $redirectURL .= 'agent/addCompany.php';
+                elseif($code==4): $redirectURL .= 'it/addCompany.php';
+                elseif($code==5): $redirectURL .= 'supplier/addCompany.php';
+                elseif($code==6): $redirectURL .= 'seller/addCompany.php';
                 endif;
              else:
                 $sessData['status']['type'] = 'error';
@@ -56,6 +59,9 @@ if(isset($_POST['addCompany']))
                 if($code==1): $redirectURL .= 'admin/addCompany.php'; 
                 elseif($code==2):$redirectURL .= 'ambassador/addCompany.php';
                 elseif($code==3):$redirectURL .= 'agent/addCompany.php';
+                elseif($code==4): $redirectURL .= 'it/addCompany.php';
+                elseif($code==5): $redirectURL .= 'supplier/addCompany.php';
+                elseif($code==6): $redirectURL .= 'seller/addCompany.php';
                 endif;
              endif;
          }
@@ -66,6 +72,9 @@ if(isset($_POST['addCompany']))
                 if($code==1): $redirectURL .= 'admin/addCompany.php'; 
                 elseif($code==2):$redirectURL .= 'ambassador/addCompany.php';
                 elseif($code==3):$redirectURL .= 'agent/addCompany.php';
+                elseif($code==4): $redirectURL .= 'it/addCompany.php';
+                elseif($code==5): $redirectURL .= 'supplier/addCompany.php';
+                elseif($code==6): $redirectURL .= 'seller/addCompany.php';
                 endif;
             }
         
@@ -78,6 +87,9 @@ if(isset($_POST['addCompany']))
         if($code==1): $redirectURL .= 'admin/addCompany.php'; 
         elseif($code==2):$redirectURL .= 'ambassador/addCompany.php';
         elseif($code==3):$redirectURL .= 'agent/addCompany.php';
+        elseif($code==4): $redirectURL .= 'it/addCompany.php';
+        elseif($code==5): $redirectURL .= 'supplier/addCompany.php';
+        elseif($code==6): $redirectURL .= 'seller/addCompany.php';
         endif;
 
     }
@@ -113,6 +125,9 @@ if(isset($_POST['update']))
             if($code==1): $redirectURL .= 'admin/allCompany.php'; 
             elseif($code==2):$redirectURL .= 'ambassador/allCompany.php';
             elseif($code==3):$redirectURL .= 'agent/allCompany.php';
+            elseif($code==4): $redirectURL .= 'it/allCompany.php';
+            elseif($code==5): $redirectURL .= 'supplier/allCompany.php';
+            elseif($code==6): $redirectURL .= 'seller/allCompany.php';
             endif;
 
             }
@@ -124,6 +139,9 @@ if(isset($_POST['update']))
             if($code==1): $redirectURL .= 'admin/allCompany.php'; 
             elseif($code==2):$redirectURL .= 'ambassador/allCompany.php';
             elseif($code==3):$redirectURL .= 'agent/allCompany.php';
+            elseif($code==4): $redirectURL .= 'it/allCompany.php';
+            elseif($code==5): $redirectURL .= 'supplier/allCompany.php';
+            elseif($code==6): $redirectURL .= 'seller/allCompany.php';
             endif;
             }
   //store status into the session

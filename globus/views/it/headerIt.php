@@ -144,7 +144,7 @@ endif;
                         </li>
                        
                        <ul>
-                            <small class="nav-divider"><a  href="category.php"><i class=""></i> <span style="color: lightgrey;">Products</span></a></small>
+                            <small class="nav-divider"><a  href="category.php"><i class=""></i> <span style="color: black;">Products</span></a></small>
                         </ul>
                     
                     </ul>

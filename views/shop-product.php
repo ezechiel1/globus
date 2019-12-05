@@ -63,11 +63,56 @@ $all=$db->wProduct($categoryID,$subCategoryID);
                   </div><img src="<?php echo $sPath.$show['product_picture'];?>" alt="Product"></a>
               <div class="product-info">
                 <h3 class="product-title"><a href="shop-single.html"><?php echo $show['product_name'];?></a></h3>
-                <h4 class="product-price"><?php echo $show['product_price'];?></h4>
+                <h4  class="product-price"><?php echo $show['product_price'];?></h4>
                 <p class="hidden-xs-down" style="overflow: hidden;height: 65px;text-align: justify;" ><?php echo $show['product_description'];?></p>
                 <div class="product-buttons">
-                  <button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="Whishlist"><i class="icon-heart"></i></button>
-                  <button class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Product" data-toast-message="successfuly added to cart!">Add to Cart</button>
+<?php 
+if($_SESSION['sessData']!=''):
+$getTable=$db->getTableProduct($categoryID,$subCategoryID);
+?>
+                  <input type="hidden" id="clientID" value="<?php echo $_SESSION['ClientID'];?>">
+                  <input type="hidden" id="productID" value="<?php echo $show['productID'];?>">
+                  <input type="hidden" id="product_table" value="<?php echo $getTable;?>">
+                  <input type="hidden" id="subCategoryID" value="<?php echo $show['subCategoryID'];?>">
+                  <input type="hidden" id="categoryID" value="<?php echo $show['categoryID'];?>">
+                  <input type="hidden" id="quantity" value="1">
+                 <input type="hidden" id="price" value="<?php echo $show['product_price'];?>">
+<?php
+ $select=$db->getRows('shop_wishing', array('where'=>array('clientID'=>$_SESSION['ClientID'],'productID'=>$show['productID'], 'categoryID'=>$show['categoryID'],'subCategoryID'=>$show['subCategoryID'])));
+ if (!empty($select)):
+?>
+                <span id="displayWish">
+                  <button role="button" onclick="delLike();" class="btn btn-outline-danger btn-sm btn-wishlist" data-toggle="tooltip"><i class="icon-heart "></i></button>
+                </span>
+<?php
+   else:
+?>  
+                <span id="displayWish">
+                   <button role="button" onclick="addLike();" class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip"><i class="icon-heart "></i></button>
+                 </span>
+<?php endif;?>  
+
+<!-- shop_cart--> 
+
+<?php
+ $select=$db->getRows('shop_cart', array('where'=>array('clientID'=>$_SESSION['ClientID'],'productID'=>$show['productID'], 'categoryID'=>$show['categoryID'],'subCategoryID'=>$show['subCategoryID'])));
+ if (!empty($select)):
+?>
+              <span id="displayCart">
+                  <button role="button" onclick="deltocart();" class="btn btn-outline-danger btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="This product have been deleted from your cart" title="Delete for your cart">Delete to Cart</button>
+              </span>
+<?php
+   else:
+?>  
+              <span id="displayCart">
+                  <button role="button" onclick="addtocart();" class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="The product have been added to the cart" title="Add to your Cart">Add to Cart</button>
+              </span>
+<?php endif;?>
+<?php else:?>
+                  <a href="account-login.php"><button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="Whishlist"><i class="icon-heart"></i></button></a>
+                  <a href="account-login.php" class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Product">Add to Cart</a>
+ <?php endif;?>
+
                 </div>
               </div>
             </div>

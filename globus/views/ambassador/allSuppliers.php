@@ -19,7 +19,7 @@
                         <div class="sparkline13-list">
                             <div class="sparkline13-hd"><br class="hidden-xs hidden-sm"><br class="hidden-xs hidden-sm">
                                 <div class="main-sparkline13-hd">
-                                    <h1>All<span class="table-project-n">Suppliers</span><small><strong class="pull-right text-success">
+                                    <h1>All <span class="table-project-n">Suppliers</span><small><strong class="pull-right text-success">
                                            <?php
                                         $sessData=array();
                                           if($_SESSION['sessData']!='')
@@ -50,19 +50,16 @@
                                                 <th data-field="name" data-editable="true">Names</th>
                                                 <th data-field="company" data-editable="true">Email</th>
                                                 <th data-field="price" data-editable="true">Telephone</th>
-                                                <th data-field="date" data-editable="true">Country</th>
-                                                <th data-field="date" data-editable="true">Location</th>
+                                                <th data-field="Country" data-editable="true">Country</th>
+                                                <th data-field="location" data-editable="true">Location</th>
                                                 <th data-field="task" data-editable="true">Status</th>                                      <th data-field="action">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
 <?php
 //Code to select data form the table database
-$tblName='supplier';
-$condition=array(
-                    'Order by' => 'supplierID DESC'
-                );
-$allAdmin=$db->getRows($tblName,$condition);
+
+$allAdmin=$db->getCompanySupplier();
 //check if there are available data
 if(!empty($allAdmin)):
     $count = 0; 
@@ -77,7 +74,7 @@ if(!empty($allAdmin)):
                                                 <td><?php echo $show['supplier_fname'].' '.$show['supplier_lname'];?></td>
                                                 <td><?php echo $show['supplier_email'];?></td>
                                                 <td><?php echo $show['supplier_phone'];?></td>
-                                                <td><?php echo $show['supplier_country'];?></td>
+                                                <td><?php echo $show['country_name'];?></td>
                                                 <td><?php echo $show['supplier_location'];?></td>
                                                 <td><?php if($show['supplier_status']==0) echo 'Desactivated'; else echo 'Activated';?></td>
                                                 <td>

@@ -51,7 +51,7 @@
                                                 <th data-field="name" data-editable="true">Names</th>
                                                 <th data-field="company" data-editable="true">Email</th>
                                                 <th data-field="price" data-editable="true">Telephone</th>
-                                                <th data-field="date" data-editable="true">Country</th>
+                                                <th data-field="country" data-editable="true">Country</th>
                                                 <th data-field="date" data-editable="true">Location</th>
                                                 <th data-field="task" data-editable="true">Status</th>                                      <th data-field="action">Action</th>
                                             </tr>
@@ -59,11 +59,7 @@
                                         <tbody>
 <?php
 //Code to select data form the table database
-$tblName='supplier';
-$condition=array(
-                    'Order by' => 'supplierID DESC'
-                );
-$allAdmin=$db->getRows($tblName,$condition);
+$allAdmin=$db->getCompanySupplier();
 //check if there are available data
 if(!empty($allAdmin)):
     $count = 0; 
@@ -78,7 +74,7 @@ if(!empty($allAdmin)):
                                                 <td><?php echo $show['supplier_fname'].' '.$show['supplier_lname'];?></td>
                                                 <td><?php echo $show['supplier_email'];?></td>
                                                 <td><?php echo $show['supplier_phone'];?></td>
-                                                <td><?php echo $show['supplier_country'];?></td>
+                                                <td><?php echo $show['country_name'];?></td>
                                                 <td><?php echo $show['supplier_location'];?></td>
                                                 <td><?php if($show['supplier_status']==0) echo 'Desactivated'; else echo 'Activated';?></td>
                                                 <td>
@@ -127,6 +123,30 @@ if(!empty($allAdmin)):
                 <div class="form-group">
                   <input type="text" name="Telephone"  value="<?php echo $show['supplier_phone'];?>" data-inputmask="'mask' : '(999) 999-999-999'" class="form-control col-xs-6">
                 </div><br><br>
+
+
+<div class="form-group">
+    
+                                                            
+                                                            <select name="Country" required="required"  class="form-control col-xs-6">
+                                                                     <option value="" hidden=""><?php echo $show['country_name'];?></option>
+<?php
+$tblName='country';
+$condition=array( 'Order by' => 'countryID asc' );
+$allcountry=$db->getRows($tblName,$condition);
+if(!empty($allcountry)):
+    foreach($allcountry as $showC): 
+?>
+                                                                <option value="<?php echo $showC['countryID'];?>"><?php echo $showC['country_name'];?></option>
+<?php
+    endforeach;
+endif;
+?>
+                                                            </select>
+                                                        </div><br><br>
+
+
+               
                <div class="form-group">
                   <input type="text" name="Location" value="<?php echo $show['supplier_location'];?>" class="form-control col-xs-6">
               </div><br><br>

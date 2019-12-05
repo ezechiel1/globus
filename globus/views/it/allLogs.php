@@ -57,7 +57,7 @@
 //Code to select data form the table database
 $tblName='log';
 $condition=array(
-                    'Order by' => 'logsID DESC'
+                    'order_by' => 'logsID DESC'
                 );
 $allLogs=$db->getRows($tblName,$condition);
 //check if there are available data

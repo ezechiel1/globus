@@ -21,18 +21,18 @@
 		if(!empty($_POST['firstname']) and !empty($_POST['lastname']) and !empty($_POST['email'])  )
 		{
 			$tblName='admin';
-			$password='123456';
+			$password='globus';
 			//insert data
 				$adminData = array
-				(	'admin_fname' => $_POST['firstname'],
-					'admin_lname' => $_POST['lastname'],
-					'admin_email' => $_POST['email'],
-					'admin_phone' => $_POST['phone'],
-					'admin_status' => $_POST['status'],
+				(	'admin_fname' => htmlspecialchars($_POST['firstname']),
+					'admin_lname' => htmlspecialchars($_POST['lastname']),
+					'admin_email' => htmlspecialchars($_POST['email']),
+					'admin_phone' => htmlspecialchars($_POST['phone']),
+					'admin_status' => htmlspecialchars($_POST['status']),
 					'admin_pin' => 0,
-					'admin_password' => $password,
-					'admin_city' => $_POST['city'],
-					'admin_country' => $_POST['Country'],
+					'admin_password' => sha1('globus'),
+					'admin_city' => htmlspecialchars($_POST['city']),
+					'admin_country' => htmlspecialchars($_POST['Country']),
 					'c_date' => $currentDate
 				 )
 				;
@@ -74,12 +74,12 @@ if(isset($_POST['update']))
             //insert data
             $userData = array
             (
-                'admin_fname' => $_POST['fname'],
-        				'admin_lname' => $_POST['lname'],
-        				'admin_email' => $_POST['email'],
-        				'admin_phone' => $_POST['phone'],
-        				'admin_city' => $_POST['address'],
-        				'admin_status' => $_POST['status']
+                'admin_fname' => htmlspecialchars($_POST['fname']),
+        				'admin_lname' => htmlspecialchars($_POST['lname']),
+        				'admin_email' => htmlspecialchars($_POST['email']),
+        				'admin_phone' => htmlspecialchars($_POST['phone']),
+        				'admin_city' => htmlspecialchars($_POST['address']),
+        				'admin_status' => htmlspecialchars($_POST['status'])
             );
 
             $condition=array('adminID' => $_POST['adminID'], );
@@ -108,20 +108,13 @@ if(isset($_POST['update']))
 // delete
 if(isset($_POST["delete"]) )
 
-{
-    
-  
+{  
            $tblName='admin';
-
-  
-
 // the update condintion, means where to apply the update in a table 
 
              $Condition = array
-            (
-                
-                
-                'adminID'=> $_POST['adminID']
+            (    
+                'adminID'=> htmlspecialchars($_POST['adminID'])
             )
             ;
 

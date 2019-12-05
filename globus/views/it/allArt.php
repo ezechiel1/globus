@@ -101,6 +101,7 @@ if(!empty($allAdmin)):
         </div>
       </div>
     </div>
+
     <!--edit the selected field-->
 
      <div class="modal fade"  <?php  echo 'id="edit'.$show['companyID'].'ers"';?> tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

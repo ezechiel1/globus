@@ -19,7 +19,7 @@
                         <div class="sparkline13-list">
                             <div class="sparkline13-hd"><br class="hidden-xs hidden-sm"><br class="hidden-xs hidden-sm">
                                 <div class="main-sparkline13-hd">
-                                    <h1>All<span class="table-project-n">Sellers</span>
+                                    <h1>All <span class="table-project-n">Sellers</span>
                                         <small><strong class="pull-right text-success">
                                     <?php
                                         $sessData=array();
@@ -60,11 +60,8 @@
                                         <tbody>
 <?php
 //Code to select data form the table database
-$tblName='seller';
-$condition=array(
-                    'Order by' => 'sellerID DESC'
-                );
-$allAdmin=$db->getRows($tblName,$condition);
+
+$allAdmin=$db->getCompanySeller();
 //check if there are available data
 if(!empty($allAdmin)):
     $count = 0; 
@@ -79,7 +76,7 @@ if(!empty($allAdmin)):
                                                 <td><?php echo $show['seller_fname'].' '.$show['seller_lname'];?></td>
                                                 <td><?php echo $show['seller_email'];?></td>
                                                 <td><?php echo $show['seller_phone'];?></td>
-                                                <td><?php echo $show['seller_country'];?></td>
+                                                <td><?php echo $show['country_name'];?></td>
                                                 <td><?php echo $show['seller_location'];?></td>
                                                 <td><?php if($show['seller_status']==0) echo 'Desactivated'; else echo 'Activated';?></td>
                         <td>

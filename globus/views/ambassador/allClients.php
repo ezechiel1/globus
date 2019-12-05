@@ -76,7 +76,7 @@ if(!empty($allAdmin)):
                                             <tr>
                                                 <td></td>
                                                 <td><?php echo '#'.$count;?></td>
-                                                <td><?php echo $show['client_fname'].' '.$show['admin_lname'];?></td>
+                                                <td><?php echo $show['client_fname'].' '.$show['client_lname'];?></td>
                                                 <td><?php echo $show['client_email'];?></td>
                                                 <td><?php echo $show['client_phone'];?></td>
                                                 <td><?php echo $show['client_location'];?></td>

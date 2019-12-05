@@ -247,16 +247,13 @@ class DB{
 
     public function getTableProduct($cat,$subCat)
     {
-        $condition=array( 'Order by' => 'subCategoryID asc',
-                'where'=>array('subCategoryID'=>$subCat)
-        );
-        $res=$this->getRows('subcategory',$condition);
-        if(!empty($res)):
-            foreach($res as $row): 
-                $tableName=$row['table_product']; 
-            endforeach;
-        endif;
-        return !empty($res)?$tableName:false;   
+         $sql ="SELECT  * from subcategory where categoryID='".$cat."' and subCategoryID='".$subCat."'";
+        $result = $this->db->query($sql);
+            if($result->num_rows > 0){
+                $row = $result->fetch_assoc();
+                    $data = $row['table_product'];
+        }
+        return !empty($data)?$data:false;
     }
 
     public function getSubCatPath($cat,$subCat)
@@ -391,7 +388,88 @@ class DB{
         }
         return !empty($data)?$data:false;
     }
-
+    //method to check the mumber of elements in the tables//
+    public function getAgentID(){
+    $sql ="SELECT  COUNT(*) AS agentID from agent";
+    $result = $this->db->query($sql);
+            if($result->num_rows > 0){
+                while($row = $result->fetch_assoc()){
+                    $data[] = $row;
+                }
+        }
+        return !empty($data)?$data:false;
+    }
+    public function getAmbassadorID(){
+    $sql ="SELECT  COUNT(*) AS ambassadorID from ambassador";
+    $result = $this->db->query($sql);
+            if($result->num_rows > 0){
+                while($row = $result->fetch_assoc()){
+                    $data[] = $row;
+                }
+        }
+        return !empty($data)?$data:false;
+    }
+    public function getSellerID(){
+    $sql ="SELECT  COUNT(*) AS sellerID from seller";
+    $result = $this->db->query($sql);
+            if($result->num_rows > 0){
+                while($row = $result->fetch_assoc()){
+                    $data[] = $row;
+                }
+        }
+        return !empty($data)?$data:false;
+    }
+public function getSupplierID(){
+    $sql ="SELECT  COUNT(*) AS supplierID from supplier";
+    $result = $this->db->query($sql);
+            if($result->num_rows > 0){
+                while($row = $result->fetch_assoc()){
+                    $data[] = $row;
+                }
+        }
+        return !empty($data)?$data:false;
+    }
+    public function getCategoryID(){
+    $sql ="SELECT  COUNT(*) AS categoryID from category";
+    $result = $this->db->query($sql);
+            if($result->num_rows > 0){
+                while($row = $result->fetch_assoc()){
+                    $data[] = $row;
+                }
+        }
+        return !empty($data)?$data:false;
+    }
+    public function getSubCategoryID(){
+    $sql ="SELECT  COUNT(*) AS subCategoryID from subcategory";
+    $result = $this->db->query($sql);
+            if($result->num_rows > 0){
+                while($row = $result->fetch_assoc()){
+                    $data[] = $row;
+                }
+        }
+        return !empty($data)?$data:false;
+    }
+    public function getClientID(){
+    $sql ="SELECT  COUNT(*) AS clientID from client";
+    $result = $this->db->query($sql);
+            if($result->num_rows > 0){
+                while($row = $result->fetch_assoc()){
+                    $data[] = $row;
+                }
+        }
+        return !empty($data)?$data:false;
+    }
+    public function getCompanyID(){
+    $sql ="SELECT  COUNT(*) AS companyID from company";
+    $result = $this->db->query($sql);
+            if($result->num_rows > 0){
+                while($row = $result->fetch_assoc()){
+                    $data[] = $row;
+                }
+        }
+        return !empty($data)?$data:false;
+    }
+    //method to check the mumber of elements in the tables//
 public function getSupplier(){
     $sql ="SELECT  * from supplier inner join company on supplier.companyID=company.companyID INNER JOIN country on supplier.supplier_country=country.countryID ";
     $result = $this->db->query($sql);
@@ -403,7 +481,7 @@ public function getSupplier(){
         return !empty($data)?$data:false;
     }
      public function getAgent(){
-        $sql ="SELECT  * from agent INNER JOIN country on agent.agent_country=country.countryID ";
+        $sql ="SELECT  * from agent INNER JOIN country on agent.agent_country=country.countryID Order by agentID DESC";
         
         $result = $this->db->query($sql);
         
@@ -463,6 +541,63 @@ public function getSupplier(){
     }
     public function getCompany(){
         $sql ="SELECT  * from company INNER JOIN country on company.company_country=country.countryID  inner join category on company.categoryID=category.categoryID";
+        
+        $result = $this->db->query($sql);
+        
+     
+            if($result->num_rows > 0){
+                while($row = $result->fetch_assoc()){
+                    $data[] = $row;
+                }
+            
+        }
+        return !empty($data)?$data:false;
+    }
+            public function getCompanySupplier(){
+        $sql ="SELECT  * from supplier INNER JOIN country on supplier.supplier_country=country.countryID Order by supplierID DESC";
+        
+        $result = $this->db->query($sql);
+        
+     
+            if($result->num_rows > 0){
+                while($row = $result->fetch_assoc()){
+                    $data[] = $row;
+                }
+            
+        }
+        return !empty($data)?$data:false;
+    }
+        public function getCompanySeller(){
+        $sql ="SELECT  * from seller INNER JOIN country on seller.seller_country=country.countryID Order by sellerID DESC";
+        
+        $result = $this->db->query($sql);
+        
+     
+            if($result->num_rows > 0){
+                while($row = $result->fetch_assoc()){
+                    $data[] = $row;
+                }
+            
+        }
+        return !empty($data)?$data:false;
+    }
+
+        public function getCompanyAgent(){
+         $sql ="SELECT  * from company INNER JOIN country on company.company_country=country.countryID Order by companyID DESC";
+        
+        $result = $this->db->query($sql);
+        
+     
+            if($result->num_rows > 0){
+                while($row = $result->fetch_assoc()){
+                    $data[] = $row;
+                }
+            
+        }
+        return !empty($data)?$data:false;
+    }
+        public function getCompanyAmbassador(){
+        $sql ="SELECT  * from company INNER JOIN country on company.company_country=country.countryID Order by companyID DESC";
         
         $result = $this->db->query($sql);
         

@@ -64,7 +64,7 @@ $tblName='agent';
 $condition=array(
                     'Order by' => 'agentID DESC'
                 );
-$allAgent=$db->getRows($tblName,$condition);
+$allAgent=$db->getAgent();
 //check if there are available data
 if(!empty($allAgent)):
     $count = 0; 
@@ -80,7 +80,7 @@ if(!empty($allAgent)):
                                                 <td><?php echo $show['agent_email'];?></td>
                                                 <td><?php echo $show['agent_phone'];?></td>
                                                 <td><?php echo $show['agent_city'];?></td>
-                                                <td><?php echo $show['agent_country'];?></td>
+                                                <td><?php echo $show['country_name'];?></td>
                                                 <td><?php if($show['agent_status']==0) echo 'Desactivated'; else echo 'Activated';?></td>
                                                 <td>
                             <a href="" class="glyphicon glyphicon-pencil text-primary" data-toggle="modal" <?php  echo 'data-target="#edit'.$show['agentID'].'ers"'; ?>></a>  
@@ -151,7 +151,32 @@ if(!empty($allAgent)):
                   <input type="text" name="Location" value="<?php echo $show['agent_city'];?>" class="form-control col-xs-6">
               </div><br><br>
               <div class="form-group">
-                  <input type="text" name="Country" value="<?php echo $show['agent_country'];?>" class="form-control col-xs-6">
+                    <select name="Country" required="required"  class="form-control col-lg-9 col-md-7 col-xs-12">
+<?php
+$tblName='country';
+$condition=array( 'Order by' => 'countryID asc', 'where' => array('countryID' => $show['ambassador_country']) );
+$allCountry=$db->getRows($tblName,$condition);
+if(!empty($allCountry)):
+    foreach($allCountry as $showCountry): 
+?>
+                                                                <option value="<?php echo $showCountry['ambassador_country'];?>" hidden=""><?php echo $showCountry['country_name'];?></option>
+                                                                 <?php
+ endforeach;
+ else: ?><?php
+endif;
+$tblName='country';
+$condition=array( 'Order by' => 'countryID asc' );
+$allCategory=$db->getRows($tblName,$condition);
+if(!empty($allCategory)):
+    foreach($allCategory as $showC): 
+?>
+                                                            <option value="<?php echo $showC['countryID'];?>"><?php echo $showC['country_name'];?></option>
+<?php
+    endforeach;
+endif;
+?>
+
+                                                            </select>
               </div><br><br>
               <div class="form-group">
                   <select  name="Status"  class="form-control col-xs-6">

@@ -12,33 +12,33 @@ if(isset($_POST['login'])){
     {
                 $condition1 =array 
                 (
-                  'admin_email'=>$_POST['email'],
-                  'admin_password'=>$_POST['password']
+                  'admin_email'=>htmlspecialchars($_POST['email']),
+                  'admin_password'=>sha1($_POST['password'])
                 );
                 $condition2 =array 
                 (
-                  'supplier_email'=>$_POST['email'],
-                  'supplier_password'=>$_POST['password']
+                  'supplier_email'=>htmlspecialchars($_POST['email']),
+                  'supplier_password'=>sha1($_POST['password'])
                 );
                 $condition3 =array 
                 (
-                  'seller_email'=>$_POST['email'],
-                  'seller_password'=>$_POST['password']
+                  'seller_email'=>htmlspecialchars($_POST['email']),
+                  'seller_password'=>sha1($_POST['password'])
                 );
                 $condition4 =array 
                 (
-                  'agent_email'=>$_POST['email'],
-                  'agent_password'=>$_POST['password']
+                  'agent_email'=>htmlspecialchars($_POST['email']),
+                  'agent_password'=>sha1($_POST['password'])
                 );
                 $condition5 =array 
                 (
-                  'ambassador_email'=>$_POST['email'],
-                  'ambassador_password'=>$_POST['password']
+                  'ambassador_email'=>htmlspecialchars($_POST['email']),
+                  'ambassador_password'=>sha1($_POST['password'])
                 );
                 $condition6 =array 
                 (
-                  'it_email'=>$_POST['email'],
-                  'it_password'=>$_POST['password']
+                  'it_email'=>htmlspecialchars($_POST['email']),
+                  'it_password'=>sha1($_POST['password'])
                 );
 
           $admin = $db->login('admin',$condition1);

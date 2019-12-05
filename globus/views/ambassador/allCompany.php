@@ -47,6 +47,7 @@
                                             <tr>
                                                 <th data-field="state" data-checkbox="true"></th>
                                                 <th data-field="id">#No</th>
+                                                <th data-field="image">Image</th>
                                                 <th data-field="name" data-editable="true">Names</th>
                                                 <th data-field="date" data-editable="true">Location</th>
                                                 <th data-field="task" data-editable="true">Country</th>
@@ -57,11 +58,8 @@
                                         <tbody>
 <?php
 //Code to select data form the table database
-$tblName='company';
-$condition=array(
-                    'Order by' => 'companyID DESC'
-                );
-$allAdmin=$db->getRows($tblName,$condition);
+
+$allAdmin=$db->getCompanyAmbassador();
 //check if there are available data
 if(!empty($allAdmin)):
     $count = 0; 
@@ -73,9 +71,10 @@ if(!empty($allAdmin)):
                                             <tr>
                                                 <td></td>
                                                 <td><?php echo '#'.$count;?></td>
+                                                <td><img style="height: 25px;width: 25px;" src="<?php echo '../../img/company/'.$show['company_picture'];?>"></td>
                                                 <td><?php echo $show['company_name'];?></td>
                                                 <td><?php echo $show['company_location'];?></td>
-                                                <td><?php echo $show['company_country'];?></td>
+                                                <td><?php echo $show['country_name'];?></td>
                                                 <td><?php if($show['company_status']==0) echo 'Desactivated'; else echo 'Activated';?></td>
                                                 <td>
                             <a href="" class="glyphicon glyphicon-pencil text-primary" data-toggle="modal" <?php  echo 'data-target="#edit'.$show['companyID'].'ers"'; ?>></a>  

@@ -23,7 +23,7 @@ if(isset($_POST['change'])){
                     $tblName = 'admin';
                     $userData = array
                     (
-                        'admin_password' => $_POST['npassword'],
+                        'admin_password' => sha1($_POST['npassword']),
                         'admin_pin' => 1
                     );
                     $condition=array('adminID' => $_SESSION['adminID'], );
@@ -31,7 +31,7 @@ if(isset($_POST['change'])){
                     $tblName = 'seller';
                     $userData = array
                     (
-                        'seller_password' => $_POST['npassword'],
+                        'seller_password' => sha1($_POST['npassword']),
                         'seller_pin' => 1
                     );
                     $condition=array('sellerID' => $_SESSION['sellerID'] );
@@ -39,7 +39,7 @@ if(isset($_POST['change'])){
                     $tblName = 'supplier';
                     $userData = array
                     (
-                        'supplier_password' => $_POST['npassword'],
+                        'supplier_password' => sha1($_POST['npassword']),
                         'supplier_pin' => 1
                     );
                     $condition=array('supplierID' => $_SESSION['supplierID']);
@@ -47,7 +47,7 @@ if(isset($_POST['change'])){
                     $tblName = 'agent';
                     $userData = array
                     (
-                        'agent_password' => $_POST['npassword'],
+                        'agent_password' => sha1($_POST['npassword']),
                         'agent_pin' => 1
                     );
                     $condition=array('agentID' => $_SESSION['agentID'] );
@@ -55,7 +55,7 @@ if(isset($_POST['change'])){
                     $tblName = 'ambassador';
                     $userData = array
                     (
-                        'ambassador_password' => $_POST['npassword'],
+                        'ambassador_password' => sha1($_POST['npassword']),
                         'ambassador_pin' => 1
                     );
                     $condition=array('ambassadorID' => $_SESSION['ambassadorID'] );
@@ -63,7 +63,7 @@ if(isset($_POST['change'])){
                     $tblName = 'it';
                     $userData = array
                     (
-                        'it_password' => $_POST['npassword'],
+                        'it_password' => sha1($_POST['npassword']),
                         'it_pin' => 1
                     );
                     $condition=array('itID' => $_SESSION['itID'] );

@@ -11,6 +11,7 @@ $extra = new Extra();
 //handle client session 
 if(!isset($_SESSION['sessData'])): $_SESSION['sessData']='';
 endif;
+include('ajax.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">

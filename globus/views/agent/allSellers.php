@@ -19,7 +19,7 @@
                         <div class="sparkline13-list">
                             <div class="sparkline13-hd"><br class="hidden-xs hidden-sm"><br class="hidden-xs hidden-sm">
                                 <div class="main-sparkline13-hd">
-                                    <h1>All<span class="table-project-n">Sellers</span><small><strong class="pull-right text-success">
+                                    <h1>All <span class="table-project-n">Sellers</span><small><strong class="pull-right text-success">
                                        <?php
                                             $sessData=array();
                                             if($_SESSION['sessData']!='')
@@ -51,19 +51,16 @@
                                                 <th data-field="name" data-editable="true">Names</th>
                                                 <th data-field="company" data-editable="true">Email</th>
                                                 <th data-field="price" data-editable="true">Telephone</th>
-                                                <th data-field="date" data-editable="true">Country</th>
-                                                <th data-field="date" data-editable="true">Location</th>
+                                                <th data-field="country" data-editable="true">Country</th>
+                                                <th data-field="location" data-editable="true">Location</th>
                                                 <th data-field="task" data-editable="true">Status</th>                                      <th data-field="action">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
 <?php
 //Code to select data form the table database
-$tblName='seller';
-$condition=array(
-                    'Order by' => 'sellerID DESC'
-                );
-$allAdmin=$db->getRows($tblName,$condition);
+
+$allAdmin=$db->getCompanySeller();
 //check if there are available data
 if(!empty($allAdmin)):
     $count = 0; 
@@ -78,7 +75,7 @@ if(!empty($allAdmin)):
                                                 <td><?php echo $show['seller_fname'].' '.$show['seller_lname'];?></td>
                                                 <td><?php echo $show['seller_email'];?></td>
                                                 <td><?php echo $show['seller_phone'];?></td>
-                                                <td><?php echo $show['seller_country'];?></td>
+                                                <td><?php echo $show['country_name'];?></td>
                                                 <td><?php echo $show['seller_location'];?></td>
                                                 <td><?php if($show['seller_status']==0) echo 'Desactivated'; else echo 'Activated';?></td>
                         <td>
@@ -126,6 +123,25 @@ if(!empty($allAdmin)):
                 <div class="form-group">
                   <input type="text" name="Telephone"  value="<?php echo $show['seller_phone'];?>" data-inputmask="'mask' : '(999) 999-999-999'" class="form-control col-xs-6">
                 </div><br><br>
+                <div class="form-group">
+    
+                                                            
+                                                            <select name="Country" required="required"  class="form-control col-xs-6">
+                                                                     <option value="" hidden=""><?php echo $show['country_name'];?></option>
+<?php
+$tblName='country';
+$condition=array( 'Order by' => 'countryID asc' );
+$allcountry=$db->getRows($tblName,$condition);
+if(!empty($allcountry)):
+    foreach($allcountry as $showC): 
+?>
+                                                                <option value="<?php echo $showC['countryID'];?>"><?php echo $showC['country_name'];?></option>
+<?php
+    endforeach;
+endif;
+?>
+                                                            </select>
+                                                        </div><br><br>
                <div class="form-group">
                   <input type="text" name="Location" value="<?php echo $show['seller_location'];?>" class="form-control col-xs-6">
               </div><br><br>

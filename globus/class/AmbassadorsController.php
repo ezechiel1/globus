@@ -18,14 +18,14 @@ if(isset($_POST['addAmbassadors']))
             //insert data
             $userData = array
             (
-                'ambassador_fname' => $_POST['Fname'],
-                'ambassador_lname' => $_POST['Lname'],
-                'ambassador_country' => $_POST['Country'],
-                'ambassador_location' => $_POST['City'],
-                'ambassador_email' => $_POST['Email'],
-                'ambassador_password' => $password,
-                'ambassador_phone' => $_POST['Telephone'],
-                'ambassador_status' => $_POST['Status'],
+                'ambassador_fname' => htmlspecialchars($_POST['Fname']),
+                'ambassador_lname' => htmlspecialchars($_POST['Lname']),
+                'ambassador_country' => htmlspecialchars($_POST['Country']),
+                'ambassador_location' => htmlspecialchars($_POST['City']),
+                'ambassador_email' => htmlspecialchars($_POST['Email']),
+                'ambassador_password' => sha1($password),
+                'ambassador_phone' => htmlspecialchars($_POST['Telephone']),
+                'ambassador_status' => htmlspecialchars($_POST['Status']),
                 'addedby'=>$_SESSION['ID'],
                 'type'=>$_SESSION['type']
                )
@@ -39,6 +39,8 @@ if(isset($_POST['addAmbassadors']))
                 elseif($code==2): $redirectURL .= 'ambassador/addAmbassador.php';
                 elseif($code==3): $redirectURL .= 'agent/addAmbassador.php';
                 elseif($code==4): $redirectURL .= 'it/addAmbassador.php';
+                elseif($code==5): $redirectURL .= 'supplier/addSellers.php';
+                elseif($code==6): $redirectURL .= 'seller/addSellers.php';
                 endif;
             }else{
                 $sessData['status']['type'] = 'error';
@@ -48,6 +50,8 @@ if(isset($_POST['addAmbassadors']))
                 elseif($code==2): $redirectURL .= 'ambassador/addAmbassador.php';
                 elseif($code==3): $redirectURL .= 'agent/addAmbassador.php';
                 elseif($code==4): $redirectURL .= 'it/addAmbassador.php';
+                elseif($code==5): $redirectURL .= 'supplier/addSellers.php';
+                elseif($code==6): $redirectURL .= 'seller/addSellers.php';
                 endif;
             }
             
@@ -61,6 +65,8 @@ if(isset($_POST['addAmbassadors']))
                 elseif($code==2): $redirectURL .= 'ambassador/addAmbassador.php';
                 elseif($code==3): $redirectURL .= 'agent/addAmbassador.php';
                 elseif($code==4): $redirectURL .= 'it/addAmbassador.php';
+                elseif($code==5): $redirectURL .= 'supplier/addSellers.php';
+                elseif($code==6): $redirectURL .= 'seller/addSellers.php';
                 endif;
             }
         
@@ -84,13 +90,14 @@ if(isset($_POST['update']))
             //insert data
             $userData = array
             (
-                'ambassador_fname' => $_POST['Fname'],
-                'ambassador_lname' => $_POST['Lname'],
-                'ambassador_email' => $_POST['Email'],
-                'ambassador_phone' => $_POST['Telephone'],
-                'ambassador_location' => $_POST['Location'],
-                'ambassador_country' => $_POST['Country'],
-                'ambassador_status' => $_POST['Status']
+                'ambassador_fname' => htmlspecialchars($_POST['Fname']),
+                'ambassador_lname' => htmlspecialchars($_POST['Lname']),
+                'ambassador_country' => htmlspecialchars($_POST['Country']),
+                'ambassador_email' => htmlspecialchars($_POST['Email']),
+                'ambassador_phone' => htmlspecialchars($_POST['Telephone']),
+                'ambassador_location' => htmlspecialchars($_POST['Location']),
+                'ambassador_country' => htmlspecialchars($_POST['Country']),
+                'ambassador_status' => htmlspecialchars($_POST['Status'])
 
             );
 
@@ -105,6 +112,8 @@ if(isset($_POST['update']))
                 elseif($code==2): $redirectURL .= 'ambassador/allAmbassadors.php';
                 elseif($code==3): $redirectURL .= 'agent/allAmbassadors.php';
                 elseif($code==4): $redirectURL .= 'it/allAmbassadors.php';
+                elseif($code==5): $redirectURL .= 'supplier/allSellers.php';
+                elseif($code==6): $redirectURL .= 'seller/allSellers.php';
                 endif;
 
             }
@@ -117,6 +126,8 @@ if(isset($_POST['update']))
                 elseif($code==2): $redirectURL .= 'ambassador/allAmbassadors.php';
                 elseif($code==3): $redirectURL .= 'agent/allAmbassadors.php';
                 elseif($code==4): $redirectURL .= 'it/allAmbassadors.php';
+                elseif($code==5): $redirectURL .= 'supplier/allSellers.php';
+                elseif($code==6): $redirectURL .= 'seller/allSellers.php';
                 endif;
             }
     }
@@ -131,6 +142,8 @@ if(isset($_POST['update']))
                 elseif($code==2): $redirectURL .= 'ambassador/allAmbassadors.php';
                 elseif($code==3): $redirectURL .= 'agent/allAmbassadors.php';
                 elseif($code==4): $redirectURL .= 'it/allAmbassadors.php';
+                elseif($code==5): $redirectURL .= 'supplier/allSellers.php';
+                elseif($code==6): $redirectURL .= 'seller/allSellers.php';
                 endif;
        }
 
@@ -167,6 +180,8 @@ if(isset($_POST['delete']))
                 elseif($code==2): $redirectURL .= 'ambassador/allAmbassadors.php';
                 elseif($code==3): $redirectURL .= 'agent/allAmbassadors.php';
                 elseif($code==4): $redirectURL .= 'it/allAmbassadors.php';
+                elseif($code==5): $redirectURL .= 'supplier/allSellers.php';
+                elseif($code==6): $redirectURL .= 'seller/allSellers.php';
                 endif;
             }
             else{
@@ -178,6 +193,8 @@ if(isset($_POST['delete']))
                 elseif($code==2): $redirectURL .= 'ambassador/allAmbassadors.php';
                 elseif($code==3): $redirectURL .= 'agent/allAmbassadors.php';
                 elseif($code==4): $redirectURL .= 'it/allAmbassadors.php';
+                elseif($code==5): $redirectURL .= 'supplier/allSellers.php';
+                elseif($code==6): $redirectURL .= 'seller/allSellers.php';
                 endif;
             }
 
@@ -193,12 +210,12 @@ if(isset($_POST['delete']))
 
           $tblName = 'ambassador';
           $code=$_SESSION['type'];
-          $password='123456';
+          $password='globus';
             //insert data
             $userData = array
             (
                 'ambassador_pin' => 0,
-                'ambassador_password' => $password
+                'ambassador_password' => sha1($password)
 
             );
 
@@ -212,6 +229,8 @@ if(isset($_POST['delete']))
                 elseif($code==2): $redirectURL .= 'ambassador/allAmbassadors.php';
                 elseif($code==3): $redirectURL .= 'agent/allAmbassadors.php';
                 elseif($code==4): $redirectURL .= 'it/allAmbassadors.php';
+                elseif($code==5): $redirectURL .= 'supplier/allSellers.php';
+                elseif($code==6): $redirectURL .= 'seller/allSellers.php';
                 endif;
 
             }
@@ -224,6 +243,8 @@ if(isset($_POST['delete']))
                 elseif($code==2): $redirectURL .= 'ambassador/allAmbassadors.php';
                 elseif($code==3): $redirectURL .= 'agent/allAmbassadors.php';
                 elseif($code==4): $redirectURL .= 'it/allAmbassadors.php';
+                elseif($code==5): $redirectURL .= 'supplier/allSellers.php';
+                elseif($code==6): $redirectURL .= 'seller/allSellers.php';
                 endif;
             }
    

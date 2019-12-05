@@ -64,7 +64,7 @@ $tblName='seller';
 $condition=array(
                     'Order by' => 'sellerID DESC'
                 );
-$allAdmin=$db->getRows($tblName,$condition);
+$allAdmin=$db->getCompanySeller();
 //check if there are available data
 if(!empty($allAdmin)):
     $count = 0; 
@@ -79,7 +79,7 @@ if(!empty($allAdmin)):
                                                 <td><?php echo $show['seller_fname'].' '.$show['seller_lname'];?></td>
                                                 <td><?php echo $show['seller_email'];?></td>
                                                 <td><?php echo $show['seller_phone'];?></td>
-                                                <td><?php echo $show['seller_country'];?></td>
+                                                <td><?php echo $show['country_name'];?></td>
                                                 <td><?php echo $show['seller_location'];?></td>
                                                 <td><?php if($show['seller_status']==0) echo 'Desactivated'; else echo 'Activated';?></td>
                         <td>
@@ -115,7 +115,7 @@ if(!empty($allAdmin)):
           <div class="modal-header"><p class="modal-title" id="exampleModalLabel">Globus~System <span class="text-muted"> | Reset The Password</span></p></div>
           <div class="modal-body">
            <div class="" style="padding-right: 10px;padding-left: 10px;">
-              <form method="post" action="../../class/sellersController.php" class="form-group" style="shape-margin: 20px;">
+              <form method="post" action="../../class/SellersController.php" class="form-group" style="shape-margin: 20px;">
                 <center><label>Do you want to Reset The Password of this Seller : <?php echo $show['seller_fname'].' '.$show['seller_lname'];?>?</label><br>
                 <input type="text" hidden="" value="<?php echo $show['sellerID'];?>" name="deleteform">
                 <button class="btn btn-secondary btn-default" type="button" data-dismiss="modal">Cancel</button>

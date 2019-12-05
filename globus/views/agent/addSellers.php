@@ -49,18 +49,28 @@ include("header.php");
                                                     </div>
 
                                                     
-                                                    <div class="form-group-inner">
-                                                        <div class="row">
+                                                    <div class="row">
                                                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                                                                 <label class="login2 pull-right pull-right-pro">Country</label>
                                                             </div>
                                                             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                                            <select name="Country"  class="form-control col-lg-9 col-md-7 col-xs-12">
-                                                                <option value="1"></option>
+                                                            <select name="Country" required="required"  class="form-control col-lg-9 col-md-7 col-xs-12">
+                                                                     <option value="" hidden="">Select The Country</option>
+<?php
+$tblName='country';
+$condition=array( 'Order by' => 'countryID asc' );
+$allcountry=$db->getRows($tblName,$condition);
+if(!empty($allcountry)):
+    foreach($allcountry as $showC): 
+?>
+                                                                <option value="<?php echo $showC['countryID'];?>"><?php echo $showC['country_name'];?></option>
+<?php
+    endforeach;
+endif;
+?>
                                                             </select>
                                                         </div>
-                                                        </div>
-                                                    </div>
+                                                        </div><br>
                                                     <div class="form-group-inner">
                                                         <div class="row">
                                                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">

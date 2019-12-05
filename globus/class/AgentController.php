@@ -12,20 +12,20 @@ if(isset($_POST['addAgent']))
 {
     if(!empty($_POST['Fname']) && !empty($_POST['Lname']))
     {
-  
+  $password='globus';
   $tblName = 'agent';
   $code=$_SESSION['type'];
             //insert data
             $userData = array
             (
-                'agent_fname' => $_POST['Fname'],
-                'agent_lname' => $_POST['Lname'],
-                'agent_country' => $_POST['Country'],
-                'agent_city' => $_POST['City'],
-                'agent_email' => $_POST['Email'],
-                'agent_password' => $password='globus',
-                'agent_phone' => $_POST['Telephone'],
-                'agent_status' => $_POST['Status'],
+                'agent_fname' => htmlspecialchars($_POST['Fname']),
+                'agent_lname' => htmlspecialchars($_POST['Lname']),
+                'agent_country' => htmlspecialchars($_POST['Country']),
+                'agent_city' => htmlspecialchars($_POST['City']),
+                'agent_email' => htmlspecialchars($_POST['Email']),
+                'agent_password' => sha1($password),
+                'agent_phone' => htmlspecialchars($_POST['Telephone']),
+                'agent_status' => htmlspecialchars($_POST['Status']),
                 'addedby'=>$_SESSION['ID'],
                 'type'=>$_SESSION['type']
                )
@@ -39,6 +39,8 @@ if(isset($_POST['addAgent']))
                 elseif($code==2): $redirectURL .= 'ambassador/addAgent.php';
                 elseif($code==3): $redirectURL .= 'agent/addAgent.php';
                 elseif($code==4): $redirectURL .= 'it/addAgent.php';
+                elseif($code==5): $redirectURL .= 'supplier/addAgents.php';
+                elseif($code==6): $redirectURL .= 'seller/addAgents.php';
                 endif;
             }else{
                 $sessData['status']['type'] = 'error';
@@ -48,6 +50,8 @@ if(isset($_POST['addAgent']))
                 elseif($code==2): $redirectURL .= 'ambassador/addAgent.php';
                 elseif($code==3): $redirectURL .= 'agent/addAgent.php';
                 elseif($code==4): $redirectURL .= 'it/addAgent.php';
+                elseif($code==5): $redirectURL .= 'supplier/addAgents.php';
+                elseif($code==6): $redirectURL .= 'seller/addAgents.php';
                 endif;
             }
         
@@ -61,6 +65,8 @@ if(isset($_POST['addAgent']))
         elseif($code==2): $redirectURL .= 'ambassador/addAgent.php';
         elseif($code==3): $redirectURL .= 'agent/addAgent.php';
         elseif($code==4): $redirectURL .= 'it/addAgent.php';
+        elseif($code==5): $redirectURL .= 'supplier/addAgents.php';
+        elseif($code==6): $redirectURL .= 'seller/addAgents.php';
         endif;
     }
 
@@ -84,13 +90,13 @@ if(isset($_POST['update']))
             //insert data
             $userData = array
             (
-                'agent_fname' => $_POST['Fname'],
-                'agent_lname' => $_POST['Lname'],
-                'agent_email' => $_POST['Email'],
-                'agent_phone' => $_POST['Telephone'],
-                'agent_city' => $_POST['Location'],
-                'agent_country' => $_POST['Country'],
-                'agent_status' => $_POST['Status']
+                'agent_fname' => htmlspecialchars($_POST['Fname']),
+                'agent_lname' => htmlspecialchars($_POST['Lname']),
+                'agent_email' => htmlspecialchars($_POST['Email']),
+                'agent_phone' => htmlspecialchars($_POST['Telephone']),
+                'agent_city' => htmlspecialchars($_POST['Location']),
+                'agent_country' => htmlspecialchars($_POST['Country']),
+                'agent_status' => htmlspecialchars($_POST['Status'])
 
             );
 
@@ -105,6 +111,8 @@ if(isset($_POST['update']))
                 elseif($code==2): $redirectURL .= 'ambassador/allAgents.php';
                 elseif($code==3): $redirectURL .= 'agent/allAgents.php';
                 elseif($code==4): $redirectURL .= 'it/allAgents.php';
+                elseif($code==5): $redirectURL .= 'supplier/allAgents.php';
+                elseif($code==6): $redirectURL .= 'seller/allAgents.php';
                 endif;
 
             }
@@ -117,6 +125,8 @@ if(isset($_POST['update']))
                 elseif($code==2): $redirectURL .= 'ambassador/allAgents.php';
                 elseif($code==3): $redirectURL .= 'agent/allAgents.php';
                 elseif($code==4): $redirectURL .= 'it/allAgents.php';
+                elseif($code==5): $redirectURL .= 'supplier/allAgents.php';
+                elseif($code==6): $redirectURL .= 'seller/allAgents.php';
                 endif;
             }
     }
@@ -154,7 +164,7 @@ if(isset($_POST['delete']))
              $Condition = array
             (
                     
-              'agentID'=> $_POST['deleteform']
+              'agentID'=> htmlspecialchars($_POST['deleteform'])
             )
             ;
 
@@ -167,6 +177,8 @@ if(isset($_POST['delete']))
                 elseif($code==2): $redirectURL .= 'ambassador/allAgents.php';
                 elseif($code==3): $redirectURL .= 'agent/allAgents.php';
                 elseif($code==4): $redirectURL .= 'it/allAgents.php';
+                elseif($code==5): $redirectURL .= 'supplier/allAgents.php';
+                elseif($code==6): $redirectURL .= 'seller/allAgents.php';
                 endif;
             }
             else{
@@ -178,6 +190,8 @@ if(isset($_POST['delete']))
                 elseif($code==2): $redirectURL .= 'ambassador/allAgents.php';
                 elseif($code==3): $redirectURL .= 'agent/allAgents.php';
                 elseif($code==4): $redirectURL .= 'it/allAgents.php';
+                elseif($code==5): $redirectURL .= 'supplier/allAgents.php';
+                elseif($code==6): $redirectURL .= 'seller/allAgents.php';
                 endif;
             }
 
@@ -194,12 +208,12 @@ if(isset($_POST['reset']))
 {
   $tblName = 'agent';
   $code=$_SESSION['type'];
-  $password='123456';
+  $password='globus';
             //insert data
             $userData = array
             (
-                'agent_fname' => 0,
-                'agent_password' => $password
+                'agent_pin' => 0,
+                'agent_password' => sha1($password)
             );
 
             $condition=array('agentID' => $_POST['deleteform'],);
@@ -213,6 +227,8 @@ if(isset($_POST['reset']))
                 elseif($code==2): $redirectURL .= 'ambassador/allAgents.php';
                 elseif($code==3): $redirectURL .= 'agent/allAgents.php';
                 elseif($code==4): $redirectURL .= 'it/allAgents.php';
+                elseif($code==5): $redirectURL .= 'supplier/allSellers.php';
+                elseif($code==6): $redirectURL .= 'seller/allSellers.php';
                 endif;
 
             }
@@ -225,6 +241,8 @@ if(isset($_POST['reset']))
                 elseif($code==2): $redirectURL .= 'ambassador/allAgents.php';
                 elseif($code==3): $redirectURL .= 'agent/allAgents.php';
                 elseif($code==4): $redirectURL .= 'it/allAgents.php';
+                elseif($code==5): $redirectURL .= 'supplier/allSellers.php';
+                elseif($code==6): $redirectURL .= 'seller/allSellers.php';
                 endif;
             }
    
