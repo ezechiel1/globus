@@ -37,10 +37,10 @@ if (isset($_POST['addtocart'])) {
                 	$redirectURL = '../index.php';
 				}
 		
-
+	$delTitle='deltocart'.$productID.'()';
 	//store status into the session
     $_SESSION['sessData'] = $sessData;
-   echo '<button role="button" onclick="deltocart();" class="btn btn-outline-danger btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="This product have been deleted from your cart" title="Delete for your cart">Delete to Cart</button>';
+   echo '<button role="button" onclick="'.$delTitle.';" class="btn btn-outline-danger btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="This product have been deleted from your cart" title="Delete for your cart">Delete to Cart</button>';
 }
 
 
@@ -68,10 +68,10 @@ if (isset($_POST['deltocart'])) {
                 	$redirectURL = '../index.php';
 				}
 		
-
+	$addTitle='addtocart'.$productID.'()';
 	//store status into the session
     $_SESSION['sessData'] = $sessData;
-   echo '<button role="button" onclick="addtocart();" class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="The product have been added to the cart" title="Add to your Cart">Add to Cart</button>';
+   echo '<button role="button" onclick="'.$addTitle.';" class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="The product have been added to the cart" title="Add to your Cart">Add to Cart</button>';
 }
 
 ?>

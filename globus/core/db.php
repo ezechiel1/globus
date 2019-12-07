@@ -389,6 +389,58 @@ class DB{
         return !empty($data)?$data:false;
     }
     //method to check the mumber of elements in the tables//
+
+    public function selectCartLimit($id){
+    $sql ="SELECT * from shop_cart WHERE ClientID=$id LIMIT 3";
+    $result = $this->db->query($sql);
+            if($result->num_rows > 0){
+                while($row = $result->fetch_assoc()){
+                    $data[] = $row;
+                }
+        }
+        return !empty($data)?$data:false;
+    }
+
+    public function selectCartValue($clientID){
+    $sql ="SELECT * from shop_cart WHERE ClientID=$clientID";
+    $result = $this->db->query($sql);
+            if($result->num_rows > 0){
+                while($row = $result->fetch_assoc()){
+                    $prodID=$row['productID'];
+                    $tableP = $row['product_table'];
+                    $sqll ="SELECT * from ".$tableP." WHERE productID='".$prodID."'";
+                    $resultl = $this->db->query($sqll);
+                            if($resultl->num_rows > 0){
+                                while($rowl = $resultl->fetch_assoc()){
+                                    $data[] = $rowl;
+                                }
+                            }
+                }
+        }
+        return !empty($data)?$data:false;
+    }
+
+    public function selectCart($id){
+    $sql ="SELECT  COUNT(*) AS id from shop_cart WHERE ClientID=$id";
+    $result = $this->db->query($sql);
+            if($result->num_rows > 0){
+                while($row = $result->fetch_assoc()){
+                    $data[] = $row;
+                }
+        }
+        return !empty($data)?$data:false;
+    }
+
+    public function selectCartTotalPrice($id){
+        $sql ="SELECT  SUM(price) AS totalPrice from shop_cart WHERE ClientID=$id";
+        $result = $this->db->query($sql);
+            if($result->num_rows > 0){
+                while($row = $result->fetch_assoc()){
+                    $data = $row['totalPrice'];
+                }
+        }
+        return !empty($data)?$data:0;
+    }
     public function getAgentID(){
     $sql ="SELECT  COUNT(*) AS agentID from agent";
     $result = $this->db->query($sql);

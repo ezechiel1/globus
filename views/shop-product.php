@@ -52,17 +52,108 @@
 //Code to select data form the table database
 $all=$db->wProduct($categoryID,$subCategoryID);
         //check if there are available data
-        if(!empty($all)):
-            $count = 0; 
-            foreach($all as $show): 
-                $count++; 
+        if(!empty($all)):$count = 0; 
+            foreach($all as $show): $count++;
+
+//dynamic ajax function on add cart
+  $addTitle='addtocart'.$show['productID'].'()'; $addCartDisplay='var cartAddDisplay="displaycart'.$show['productID'].'";'; $addIDcart='displaycart'.$show['productID'];
+  $clientid='var clientIDd="clientID'.$show['productID'].'";';
+  $productid='var productIDd="productID'.$show['productID'].'";';
+  $product_table='var product_tabled="product_table'.$show['productID'].'";';
+  $subcategory='var subCategoryIDd="subCategoryID'.$show['productID'].'";';
+  $category='var categoryIDd="categoryID'.$show['productID'].'";';
+  $quantite='var quantityd="quantity'.$show['productID'].'";';
+  $prices='var priced="price'.$show['productID'].'";';
+
+  //dynamic ajax function on delete cart
+  $delTitle='deltocart'.$show['productID'].'()'; $delCartDisplay='var cartDelDisplay="displaycart'.$show['productID'].'";'; $delIDcart='displayCart'.$show['productID'];
+  
 ?>
+<script type="text/javascript">
+    //the functionS to add to the cart
+                function <?=$addTitle?>{
+                  if(XMLHttpRequestObject){
+                    XMLHttpRequestObject.open("POST","../class/shop_cartController.php");
+                    XMLHttpRequestObject.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+                    XMLHttpRequestObject.onreadystatechange=function(){
+
+                    
+                    if(XMLHttpRequestObject.readyState==4 && XMLHttpRequestObject.status==200){
+                      var datar=XMLHttpRequestObject.responseText;
+                      <?=$addCartDisplay?>
+                      var divsee=document.getElementById(cartAddDisplay);/// la ou ca va afficher 
+                      divsee.innerHTML=datar;
+                    }
+                }
+                    //load dynaamic variables
+                    <?=$clientid?> 
+                    <?=$productid?> 
+                    <?=$product_table?>
+                    <?=$subcategory?> 
+                    <?=$category?> 
+                    <?=$quantite?> 
+                    <?=$prices?>
+                    // les variables a etre envoyer et utiliser
+                    var client=document.getElementById(clientIDd).value;
+                    var prod=document.getElementById(productIDd).value;
+                    var prod_table=document.getElementById(product_tabled).value;
+                    var subcat=document.getElementById(subCategoryIDd).value;
+                    var cat=document.getElementById(categoryIDd).value;
+                    var quantity=document.getElementById(quantityd).value;
+                    var price=document.getElementById(priced).value;
+                    
+                    var data=client+'|'+prod+'|'+prod_table+'|'+subcat+'|'+cat+'|'+quantity+'|'+price+'|'; //pour concatener plusieures variables
+                    XMLHttpRequestObject.send("addtocart=" + data); // Send variables
+                  }
+                  return false;
+                }
+
+  //the functionS to delete to the cart
+                function <?=$delTitle?>{
+                  if(XMLHttpRequestObject){
+                    XMLHttpRequestObject.open("POST","../class/shop_cartController.php");
+                    XMLHttpRequestObject.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+                    XMLHttpRequestObject.onreadystatechange=function(){
+
+                    
+                    if(XMLHttpRequestObject.readyState==4 && XMLHttpRequestObject.status==200){
+                      var datar=XMLHttpRequestObject.responseText;
+                      <?=$delCartDisplay?>
+                      var divsee=document.getElementById(cartDelDisplay);/// la ou ca va afficher 
+                      divsee.innerHTML=datar;
+                    }
+                }
+
+                    //load dynaamic variables
+                    <?=$clientid?> 
+                    <?=$productid?> 
+                    <?=$product_table?>
+                    <?=$subcategory?> 
+                    <?=$category?> 
+                    <?=$quantite?> 
+                    <?=$prices?>
+                    //les variables a etre envoyer et utiliser
+                    var client=document.getElementById(clientIDd).value;
+                    var prod=document.getElementById(productIDd).value;
+                    var prod_table=document.getElementById(product_tabled).value;
+                    var subcat=document.getElementById(subCategoryIDd).value;
+                    var cat=document.getElementById(categoryIDd).value;
+                    var quantity=document.getElementById(quantityd).value;
+                    var price=document.getElementById(priced).value;
+                    
+                    var data=client+'|'+prod+'|'+prod_table+'|'+subcat+'|'+cat+'|'+quantity+'|'+price+'|'; //pour concatener plusieures variables
+                    XMLHttpRequestObject.send("deltocart=" + data); // Send variables
+                  }
+                  return false;
+                }
+</script>
+<!-- //end of dynamic ajax function -->
             <!-- Product-->
             <div class="product-card product-list"><a class="product-thumb" href="product-description.php?SubCategory=<?php echo urlencode(trim($show['product_name']))?>&ct=<?php echo $show['categoryID'];?>&sct=<?php echo $show['subCategoryID'];?>&pt=<?php echo $show['productID'];?>">
                   <div class="rating-stars"><i class="icon-star filled"></i><i class="icon-star filled"></i><i class="icon-star filled"></i><i class="icon-star filled"></i><i class="icon-star"></i>
                   </div><img src="<?php echo $sPath.$show['product_picture'];?>" alt="Product"></a>
               <div class="product-info">
-                <h3 class="product-title"><a href="shop-single.html"><?php echo $show['product_name'];?></a></h3>
+                <h3 class="product-title"><a href=""><?php echo $show['product_name'];?></a></h3>
                 <h4  class="product-price"><?php echo $show['product_price'];?></h4>
                 <p class="hidden-xs-down" style="overflow: hidden;height: 65px;text-align: justify;" ><?php echo $show['product_description'];?></p>
                 <div class="product-buttons">
@@ -70,13 +161,13 @@ $all=$db->wProduct($categoryID,$subCategoryID);
 if($_SESSION['sessData']!=''):
 $getTable=$db->getTableProduct($categoryID,$subCategoryID);
 ?>
-                  <input type="hidden" id="clientID" value="<?php echo $_SESSION['ClientID'];?>">
-                  <input type="hidden" id="productID" value="<?php echo $show['productID'];?>">
-                  <input type="hidden" id="product_table" value="<?php echo $getTable;?>">
-                  <input type="hidden" id="subCategoryID" value="<?php echo $show['subCategoryID'];?>">
-                  <input type="hidden" id="categoryID" value="<?php echo $show['categoryID'];?>">
-                  <input type="hidden" id="quantity" value="1">
-                 <input type="hidden" id="price" value="<?php echo $show['product_price'];?>">
+                  <input type="hidden" id="<?='clientID'.$show['productID'];?>" value="<?php echo $_SESSION['ClientID'];?>">
+                  <input type="hidden" id="<?='productID'.$show['productID'];?>" value="<?php echo $show['productID'];?>">
+                  <input type="hidden" id="<?='product_table'.$show['productID'];?>" value="<?php echo $getTable;?>">
+                  <input type="hidden" id="<?='subCategoryID'.$show['productID'];?>" value="<?php echo $show['subCategoryID'];?>">
+                  <input type="hidden" id="<?='categoryID'.$show['productID'];?>" value="<?php echo $show['categoryID'];?>">
+                  <input type="hidden" id="<?='quantity'.$show['productID'];?>" value="1">
+                 <input type="hidden" id="<?='price'.$show['productID'];?>" value="<?php echo $show['product_price'];?>">
 <?php
  $select=$db->getRows('shop_wishing', array('where'=>array('clientID'=>$_SESSION['ClientID'],'productID'=>$show['productID'], 'categoryID'=>$show['categoryID'],'subCategoryID'=>$show['subCategoryID'])));
  if (!empty($select)):
@@ -96,16 +187,16 @@ $getTable=$db->getTableProduct($categoryID,$subCategoryID);
 
 <?php
  $select=$db->getRows('shop_cart', array('where'=>array('clientID'=>$_SESSION['ClientID'],'productID'=>$show['productID'], 'categoryID'=>$show['categoryID'],'subCategoryID'=>$show['subCategoryID'])));
- if (!empty($select)):
+    if (!empty($select)):
 ?>
-              <span id="displayCart">
-                  <button role="button" onclick="deltocart();" class="btn btn-outline-danger btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="This product have been deleted from your cart" title="Delete for your cart">Delete to Cart</button>
+              <span id="<?=$addIDcart?>">
+                  <button role="button" onclick="<?=$delTitle?>;" class="btn btn-outline-danger btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="This product have been deleted from your cart" title="Delete for your cart">Delete to Cart</button>
               </span>
 <?php
    else:
 ?>  
-              <span id="displayCart">
-                  <button role="button" onclick="addtocart();" class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="The product have been added to the cart" title="Add to your Cart">Add to Cart</button>
+              <span id="<?=$addIDcart?>">
+                  <button role="button" onclick="<?=$addTitle?>;" class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="The product have been added to the cart" title="Add to your Cart">Add to Cart</button>
               </span>
 <?php endif;?>
 <?php else:?>

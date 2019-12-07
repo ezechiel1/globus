@@ -483,32 +483,66 @@ else: ?>
 <?php endif;?>
             </div>
             <div class="cart"><a href="views/cart.php"></a><i class="icon-bag"></i>
-        <?php 
+<?php 
 if($_SESSION['sessData']!=''):
+  $clID=$_SESSION['ClientID'];
+  $select=$db->selectCart($clID);
+    if(!empty($select)):
+      foreach ($select as $value):
 ?>
-              <span class="count">3</span><span class="subtotal">$289.68</span>
+              <span class="count"><?php echo $value['id'];endforeach;endif;?></span><span class="subtotal">$ <?= $db->selectCartTotalPrice($_SESSION['ClientID']);?>
+            </span>
+<?php  
+$selectLimit=$db->selectCartLimit($clID);
+    if(!empty($selectLimit)):
+      foreach ($selectLimit as $valueL):  
+?>
+              <div class="toolbar-dropdown">
+<?php 
+         $clID=$_SESSION['ClientID'];
+          $prodID=$valueL['productID']; 
+$selectval=$db->selectCartValue($clID);
+    if(!empty($selectval)):
+      foreach ($selectval as $valueC):
+$condition=array('where'=>array('subCategoryID'=>$valueC['subCategoryID']));            
+$selectSubcategory=$db->getRows('subcategory',$condition);
+if (!empty($selectSubcategory)):
+    foreach ($selectSubcategory as $key):
+?>
+                <div class="dropdown-product-item"><span class="dropdown-product-remove"></span><a class="dropdown-product-thumb" href="views/product-description.php?SubCategory=<?=urlencode($key['subCategory_name'])?>&ct=<?=$key['categoryID']?>&sct=<?=$key['subCategoryID']?>&pt=<?=$valueC['productID']?>">
+
+                  <img src="<?='globus/'.substr($key['subCategory_path']. $valueC['product_picture'],6);?>" alt="Product"></a>
+                  <div class="dropdown-product-info">
+                    <a class="dropdown-product-title" href="views/product-description.php?SubCategory=<?=urlencode($key['subCategory_name'])?>&ct=<?=$key['categoryID']?>&sct=<?=$key['subCategoryID']?>&pt=<?=$valueC['productID']?>">
+<?php  
+              echo $valueC['product_name'];
+?>
+                    </a><span class="dropdown-product-details">
+                    1 x $ <?php
+              echo $valueC['product_price'];
+?>
+                      </span></div>
+                </div>
+<?php 
+      endforeach;
+  endif;
+ endforeach; 
+endif;?>
+                
+                <div class="toolbar-dropdown-group">
+                  <div class="column"><span class="text-lg">Total:</span></div>
+                  <div class="column text-right"><span class="text-lg text-medium">$ <?= $db->selectCartTotalPrice($_SESSION['ClientID']);?>&nbsp;</span></div>
+                </div>
+                <div class="toolbar-dropdown-group">
+                  <div class="column"><a class="btn btn-sm btn-block btn-secondary" href="views/cart.php">View Cart</a></div>
+                  <div class="column"><a class="btn btn-sm btn-block btn-success" href="views/checkout-address.php">Checkout</a></div>
+                </div>
+              </div>
+<?php endforeach;endif;?>
 <?php else: ?>   
               <span class="count">0</span><span class="subtotal">$0.00</span>
 <?php endif;?>                         
-              <div class="toolbar-dropdown">
-                <div class="dropdown-product-item"><span class="dropdown-product-remove"><i class="icon-cross"></i></span><a class="dropdown-product-thumb" href="shop-single.php"><img src="img/cart-dropdown/01.jpg" alt="Product"></a>
-                  <div class="dropdown-product-info"><a class="dropdown-product-title" href="shop-single.php">Unionbay Park</a><span class="dropdown-product-details">1 x $43.90</span></div>
-                </div>
-                <div class="dropdown-product-item"><span class="dropdown-product-remove"><i class="icon-cross"></i></span><a class="dropdown-product-thumb" href="shop-single.php"><img src="img/cart-dropdown/02.jpg" alt="Product"></a>
-                  <div class="dropdown-product-info"><a class="dropdown-product-title" href="shop-single.php">Daily Fabric Cap</a><span class="dropdown-product-details">2 x $24.89</span></div>
-                </div>
-                <div class="dropdown-product-item"><span class="dropdown-product-remove"><i class="icon-cross"></i></span><a class="dropdown-product-thumb" href="shop-single.php"><img src="img/cart-dropdown/03.jpg" alt="Product"></a>
-                  <div class="dropdown-product-info"><a class="dropdown-product-title" href="shop-single.php">Haan Crossbody</a><span class="dropdown-product-details">1 x $200.00</span></div>
-                </div>
-                <div class="toolbar-dropdown-group">
-                  <div class="column"><span class="text-lg">Total:</span></div>
-                  <div class="column text-right"><span class="text-lg text-medium">$289.68&nbsp;</span></div>
-                </div>
-                <div class="toolbar-dropdown-group">
-                  <div class="column"><a class="btn btn-sm btn-block btn-secondary" href="cart.php">View Cart</a></div>
-                  <div class="column"><a class="btn btn-sm btn-block btn-success" href="checkout-address.php">Checkout</a></div>
-                </div>
-              </div>
+              
             </div>
           </div>
         </div>
