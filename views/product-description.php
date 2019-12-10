@@ -127,8 +127,52 @@ $all=$db->wProductDescription($categoryID,$subCategoryID,$productID);
                 <div class="share-links"><a class="social-button shape-circle sb-facebook" href="#" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="socicon-facebook"></i></a><a class="social-button shape-circle sb-twitter" href="#" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="socicon-twitter"></i></a><a class="social-button shape-circle sb-instagram" href="#" data-toggle="tooltip" data-placement="top" title="Instagram"><i class="socicon-instagram"></i></a><a class="social-button shape-circle sb-google-plus" href="#" data-toggle="tooltip" data-placement="top" title="Google +"><i class="socicon-googleplus"></i></a></div>
               </div>
               <div class="sp-buttons mt-2 mb-2">
-                <button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="Whishlist"><i class="icon-heart"></i></button>
-                <button class="btn btn-primary" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Product" data-toast-message="successfuly added to cart!"><i class="icon-bag"></i> Add to Cart</button>
+
+<?php 
+if($_SESSION['sessData']!=''):
+  $getTable=$db->getTableProduct($categoryID,$subCategoryID);
+?>
+                <input type="hidden" id="clientID" value="<?php echo $_SESSION['ClientID'];?>">
+                  <input type="hidden" id="productID" value="<?php echo $show['productID'];?>">
+                  <input type="hidden" id="product_table" value="<?php echo $getTable;?>">
+                  <input type="hidden" id="subCategoryID" value="<?php echo $show['subCategoryID'];?>">
+                  <input type="hidden" id="categoryID" value="<?php echo $show['categoryID'];?>">
+                  <input type="hidden" id="quantity" value="1">
+                 <input type="hidden" id="price" value="<?php echo $show['product_price'];?>">
+<?php
+ $select=$db->getRows('shop_wishing', array('where'=>array('clientID'=>$_SESSION['ClientID'],'productID'=>$productID, 'categoryID'=>$categoryID,'subCategoryID'=>$subCategoryID)));
+ if (!empty($select)):
+?>
+                <span id="displayWish">
+                  <button class="btn btn-outline-danger  btn-sm btn-wishlist" onclick="delLike();" data-toggle="tooltip" title="Whishlist"><i class="icon-heart"></i></button>
+                </span>
+<?php
+   else:
+?>
+                <span id="displayWish">
+                  <button class="btn btn-outline-secondary btn-sm btn-wishlist" onclick="addLike();" data-toggle="tooltip" title="Whishlist"><i class="icon-heart"></i></button>
+                </span>
+<?php endif;?>
+
+<?php
+ $select=$db->getRows('shop_cart', array('where'=>array('clientID'=>$_SESSION['ClientID'],'productID'=>$productID, 'categoryID'=>$categoryID,'subCategoryID'=>$subCategoryID)));
+    if (!empty($select)):
+?>
+                <span id="displayCart">
+                  <button class="btn btn-danger" onclick="deltocart();" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Product" data-toast-message="successfuly added to cart!"><i class="icon-bag"></i> Delete to Cart</button>
+                </span>
+<?php
+   else:
+?>        
+                <span id="displayCart">
+                  <button class="btn btn-primary" onclick="addtocart();" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Product" data-toast-message="successfuly added to cart!"><i class="icon-bag"></i> Add to Cart</button>
+                </span>
+
+<?php endif;?>
+<?php else:?>
+                  <a href="account-login.php"><button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="Whishlist"><i class="icon-heart"></i></button></a>
+                  <a href="account-login.php" class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Product">Add to Cart</a>
+ <?php endif;?>         
               </div>
             </div>
           </div>

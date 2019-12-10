@@ -35,12 +35,20 @@
                 <th class="text-center"><a class="btn btn-sm btn-outline-danger" href="#">Clear Cart</a></th>
               </tr>
             </thead>
+
             <tbody>
+<?php
+if($_SESSION['sessData']!=''):
+  $clID=$_SESSION['ClientID'];
+  $select=$db->selectCartValue($clID);
+    if(!empty($select)):
+      foreach ($select as $value):
+?>
               <tr>
                 <td>
-                  <div class="product-item"><a class="product-thumb" href="shop-single.php"><img src="../img/shop/cart/01.jpg" alt="Product"></a>
+                  <div class="product-item"><a class="product-thumb" href="shop-single.php"><img src="<?='globus/'.substr($key['subCategory_path']. $valueC['product_picture'],6);?>" alt="Product"></a>
                     <div class="product-info">
-                      <h4 class="product-title"><a href="shop-single.php">Unionbay Park</a></h4><span><em>Size:</em> 10.5</span><span><em>Color:</em> Dark Blue</span>
+                      <h4 class="product-title"><a href="shop-single.php"><?php echo $valueC['product_name'];?></a></h4><span><em>Size:</em> 10.5</span><span><em>Color:</em> Dark Blue</span>
                     </div>
                   </div>
                 </td>
@@ -59,7 +67,11 @@
                 <td class="text-center text-lg text-medium">$18.00</td>
                 <td class="text-center"><a class="remove-from-cart" href="#" data-toggle="tooltip" title="Remove item"><i class="icon-cross"></i></a></td>
               </tr>
-              <tr>
+<?php 
+  endforeach;endif;endif;
+?>
+
+             <!-- <tr>
                 <td>
                   <div class="product-item"><a class="product-thumb" href="shop-single.php"><img src="../img/shop/cart/02.jpg" alt="Product"></a>
                     <div class="product-info">
@@ -82,6 +94,8 @@
                 <td class="text-center">&mdash;</td>
                 <td class="text-center"><a class="remove-from-cart" href="#" data-toggle="tooltip" title="Remove item"><i class="icon-cross"></i></a></td>
               </tr>
+
+
               <tr>
                 <td>
                   <div class="product-item"><a class="product-thumb" href="shop-single.php"><img src="../img/shop/cart/03.jpg" alt="Product"></a>
@@ -104,8 +118,11 @@
                 <td class="text-center text-lg text-medium">$200.00</td>
                 <td class="text-center">&mdash;</td>
                 <td class="text-center"><a class="remove-from-cart" href="#" data-toggle="tooltip" title="Remove item"><i class="icon-cross"></i></a></td>
-              </tr>
+              </tr>-->
+
             </tbody>
+
+
           </table>
         </div>
         <div class="shopping-cart-footer">

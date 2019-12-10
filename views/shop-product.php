@@ -67,6 +67,12 @@ $all=$db->wProduct($categoryID,$subCategoryID);
 
   //dynamic ajax function on delete cart
   $delTitle='deltocart'.$show['productID'].'()'; $delCartDisplay='var cartDelDisplay="displaycart'.$show['productID'].'";'; $delIDcart='displayCart'.$show['productID'];
+
+  //dynamic ajax function on add wish
+  $addWish='addLike'.$show['productID'].'()'; $addWishDisplay='var wishAddDisplay="displayWish'.$show['productID'].'";'; $addIDWish='displayWish'.$show['productID'];
+
+  //dynamic ajax function on delete wish
+  $delWish='delLike'.$show['productID'].'()'; $delWishDisplay='var wishDelDisplay="displayWish'.$show['productID'].'";'; $delIDWish='displayWish'.$show['productID'];
   
 ?>
 <script type="text/javascript">
@@ -146,6 +152,83 @@ $all=$db->wProduct($categoryID,$subCategoryID);
                   }
                   return false;
                 }
+//the functionS to add to the wish
+                function <?=$addWish?>{
+                  if(XMLHttpRequestObject){
+                    XMLHttpRequestObject.open("POST","../class/shop_wishingController.php");
+                    XMLHttpRequestObject.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+                    XMLHttpRequestObject.onreadystatechange=function(){
+
+                    
+                    if(XMLHttpRequestObject.readyState==4 && XMLHttpRequestObject.status==200){
+                      var datar=XMLHttpRequestObject.responseText;
+                      <?=$addWishDisplay?>
+                      var divsee=document.getElementById(wishAddDisplay);/// la ou ca va afficher 
+                      divsee.innerHTML=datar;
+                    }
+                }
+
+                    //load dynaamic variables
+                    <?=$clientid?> 
+                    <?=$productid?> 
+                    <?=$product_table?>
+                    <?=$subcategory?> 
+                    <?=$category?> 
+                    <?=$quantite?> 
+                    <?=$prices?>
+                    //les variables a etre envoyer et utiliser
+                    var client=document.getElementById(clientIDd).value;
+                    var prod=document.getElementById(productIDd).value;
+                    var prod_table=document.getElementById(product_tabled).value;
+                    var subcat=document.getElementById(subCategoryIDd).value;
+                    var cat=document.getElementById(categoryIDd).value;
+                    var quantity=document.getElementById(quantityd).value;
+                    var price=document.getElementById(priced).value;
+                    
+                    var data=client+'|'+prod+'|'+prod_table+'|'+subcat+'|'+cat+'|'+quantity+'|'+price+'|'; //pour concatener plusieures variables
+                    XMLHttpRequestObject.send("addLike=" + data); // Send variables
+                  }
+                  return false;
+                }
+
+                 //the functionS to delete to the wishlist
+                function <?=$delWish?>{
+                  if(XMLHttpRequestObject){
+                    XMLHttpRequestObject.open("POST","../class/shop_wishingController.php");
+                    XMLHttpRequestObject.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+                    XMLHttpRequestObject.onreadystatechange=function(){
+
+                    
+                    if(XMLHttpRequestObject.readyState==4 && XMLHttpRequestObject.status==200){
+                      var datar=XMLHttpRequestObject.responseText;
+                      <?=$delWishDisplay?>
+                      var divsee=document.getElementById(wishDelDisplay);/// la ou ca va afficher 
+                      divsee.innerHTML=datar;
+                    }
+                }
+
+                    //load dynaamic variables
+                    <?=$clientid?> 
+                    <?=$productid?> 
+                    <?=$product_table?>
+                    <?=$subcategory?> 
+                    <?=$category?> 
+                    <?=$quantite?> 
+                    <?=$prices?>
+                    //les variables a etre envoyer et utiliser
+                    var client=document.getElementById(clientIDd).value;
+                    var prod=document.getElementById(productIDd).value;
+                    var prod_table=document.getElementById(product_tabled).value;
+                    var subcat=document.getElementById(subCategoryIDd).value;
+                    var cat=document.getElementById(categoryIDd).value;
+                    var quantity=document.getElementById(quantityd).value;
+                    var price=document.getElementById(priced).value;
+                    
+                    var data=client+'|'+prod+'|'+prod_table+'|'+subcat+'|'+cat+'|'+quantity+'|'+price+'|'; //pour concatener plusieures variables
+                    XMLHttpRequestObject.send("delLike=" + data); // Send variables
+                  }
+                  return false;
+                }
 </script>
 <!-- //end of dynamic ajax function -->
             <!-- Product-->
@@ -172,14 +255,14 @@ $getTable=$db->getTableProduct($categoryID,$subCategoryID);
  $select=$db->getRows('shop_wishing', array('where'=>array('clientID'=>$_SESSION['ClientID'],'productID'=>$show['productID'], 'categoryID'=>$show['categoryID'],'subCategoryID'=>$show['subCategoryID'])));
  if (!empty($select)):
 ?>
-                <span id="displayWish">
-                  <button role="button" onclick="delLike();" class="btn btn-outline-danger btn-sm btn-wishlist" data-toggle="tooltip"><i class="icon-heart "></i></button>
+                <span id="<?=$addIDWish?>">
+                  <button role="button" onclick="<?=$delWish?>;" class="btn btn-outline-danger btn-sm btn-wishlist" data-toggle="tooltip"><i class="icon-heart "></i></button>
                 </span>
 <?php
    else:
 ?>  
-                <span id="displayWish">
-                   <button role="button" onclick="addLike();" class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip"><i class="icon-heart "></i></button>
+                <span id="<?=$addIDWish?>">
+                   <button role="button" onclick="<?=$addWish?>;" class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip"><i class="icon-heart "></i></button>
                  </span>
 <?php endif;?>  
 

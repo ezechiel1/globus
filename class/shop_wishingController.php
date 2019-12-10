@@ -37,10 +37,10 @@ if (isset($_POST['addLike'])) {
                 	$redirectURL = '../index.php';
 				}
 		
-
+	$delWish='delLike'.$productID.'()';
 	//store status into the session
     $_SESSION['sessData'] = $sessData;
-   echo '<button role="button" onclick="delLike();" class="btn btn-outline-danger btn-sm btn-wishlist" data-toggle="tooltip"><i class="icon-heart "></i></button>';
+   echo '<button role="button" onclick="'.$delWish.';" class="btn btn-outline-danger btn-sm btn-wishlist" data-toggle="tooltip"><i class="icon-heart "></i></button>';
 }
 
 if (isset($_POST['delLike'])) {
@@ -67,10 +67,10 @@ if (isset($_POST['delLike'])) {
                 	$redirectURL = '../index.php';
 				}
 		
-
+     $addWish='addLike'.$productID.'()';
 	//store status into the session
     $_SESSION['sessData'] = $sessData;
-   echo '<button role="button" onclick="addLike();" class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip"><i class="icon-heart "></i></button>';
+   echo '<button role="button" onclick="'.$addWish.';" class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip"><i class="icon-heart "></i></button>';
 }
 
 ?>
