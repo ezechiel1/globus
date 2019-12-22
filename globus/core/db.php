@@ -420,6 +420,17 @@ class DB{
         return !empty($data)?$data:false;
     }
 
+    public function selectCartValue2($clientID,$ID){
+    $sql ="SELECT * from shop_cart WHERE ClientID=$clientID AND productID=$ID";
+    $result = $this->db->query($sql);
+            if($result->num_rows > 0){
+                while($row = $result->fetch_assoc()){
+                     $data[] = $row;
+                                }
+                            }
+        return !empty($data)?$data:false;
+    }
+
     public function selectCart($id){
     $sql ="SELECT  COUNT(*) AS id from shop_cart WHERE ClientID=$id";
     $result = $this->db->query($sql);

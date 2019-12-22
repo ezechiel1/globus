@@ -64,6 +64,30 @@ if(window.XMLHttpRequest){
                   return false;
                 }
 
+                //the functionS to delete to the cart
+                function deltocartOne(){
+                  if(XMLHttpRequestObject){
+                    XMLHttpRequestObject.open("POST","../class/shop_cartController.php");
+                    XMLHttpRequestObject.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+                    XMLHttpRequestObject.onreadystatechange=function(){
+
+                    
+                    if(XMLHttpRequestObject.readyState==4 && XMLHttpRequestObject.status==200){
+                      var datar=XMLHttpRequestObject.responseText;
+                      var divsee=document.getElementById("displayCart");/// la ou ca va afficher 
+                      divsee.innerHTML=datar;
+                    }
+                }
+                    //les variables a etre envoyer et utiliser
+                    var client=document.getElementById("clientID").value;
+                    var prod=document.getElementById("productID").value;
+                    
+                    var data=client+'|'+prod+'|'; //pour concatener plusieures variables
+                    XMLHttpRequestObject.send("deltocartOne=" + data); // Send variables
+                  }
+                  return false;
+                }
+
                  //the functionS to add to the wishlist
                 function addLike(){
                   if(XMLHttpRequestObject){

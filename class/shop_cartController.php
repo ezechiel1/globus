@@ -74,4 +74,32 @@ if (isset($_POST['deltocart'])) {
    echo '<button role="button" onclick="'.$addTitle.';" class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="The product have been added to the cart" title="Add to your Cart">Add to Cart</button>';
 }
 
+if (isset($_POST['deltocartOne']) || $_REQUEST['request']='del') {
+	$table="shop_cart";
+	list($clientID,$productID)=explode('|', $_POST['deltocartOne']);
+	$condition=array(
+		'clientID'=>$clientID,
+		'productID'=>$productID
+	);
+	$delete = $db->delete($table, $condition);
+				if($delete)
+				{
+					$sessData['status']['type'] = 'success';
+                	$sessData['status']['msg'] = 'Operation done successfully.';
+					//set redirect url
+                	$redirectURL = '../index.php';
+				}
+				else{
+					$sessData['status']['type']='error';
+					$sessData['status']['type']='Operation failed, Please Try again.';
+					//set redirect url
+                	$redirectURL = '../index.php';
+				}
+		
+	$addTitle='addtocart'.$productID.'()';
+	//store status into the session
+    $_SESSION['sessData'] = $sessData;
+   echo '<button role="button" onclick="'.$addTitle.';" class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="The product have been added to the cart" title="Add to your Cart">Add to Cart</button>';
+}
+
 ?>

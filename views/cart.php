@@ -30,8 +30,8 @@
               <tr>
                 <th>Product Name</th>
                 <th class="text-center">Quantity</th>
-                <th class="text-center">Subtotal</th>
-                <th class="text-center">Discount</th>
+                <th class="text-center">Price</th>
+                <!--<th class="text-center">Discount</th>-->
                 <th class="text-center"><a class="btn btn-sm btn-outline-danger" href="#">Clear Cart</a></th>
               </tr>
             </thead>
@@ -42,11 +42,18 @@ if($_SESSION['sessData']!=''):
   $clID=$_SESSION['ClientID'];
   $select=$db->selectCartValue($clID);
     if(!empty($select)):
-      foreach ($select as $value):
+      foreach ($select as $valueC):
+    $condition=array('where'=>array('subCategoryID'=>$valueC['subCategoryID']));            
+    $selectSubcategory=$db->getRows('subcategory',$condition);
+    if (!empty($selectSubcategory)):
+        foreach ($selectSubcategory as $key):
+    $select2=$db->selectCartValue2($clID,$valueC['productID']);
+        if(!empty($select2)):
+          foreach ($select2 as $valueCv):
 ?>
               <tr>
                 <td>
-                  <div class="product-item"><a class="product-thumb" href="shop-single.php"><img src="<?='globus/'.substr($key['subCategory_path']. $valueC['product_picture'],6);?>" alt="Product"></a>
+                  <div class="product-item"><a class="product-thumb" href="shop-single.php"><img src="<?='../globus/'.substr($key['subCategory_path']. $valueC['product_picture'],6);?>" alt="Product"></a>
                     <div class="product-info">
                       <h4 class="product-title"><a href="shop-single.php"><?php echo $valueC['product_name'];?></a></h4><span><em>Size:</em> 10.5</span><span><em>Color:</em> Dark Blue</span>
                     </div>
@@ -55,20 +62,22 @@ if($_SESSION['sessData']!=''):
                 <td class="text-center">
                   <div class="count-input">
                     <select class="form-control">
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
+                      <option value="<?=$valueCv['quantity']?>"><?=$valueCv['quantity']?></option>
+                      <option value="">2</option>
+                      <option value="">3</option>
+                      <option value="">4</option>
+                      <option value="">5</option>
                     </select>
                   </div>
                 </td>
-                <td class="text-center text-lg text-medium">$43.90</td>
-                <td class="text-center text-lg text-medium">$18.00</td>
-                <td class="text-center"><a class="remove-from-cart" href="#" data-toggle="tooltip" title="Remove item"><i class="icon-cross"></i></a></td>
+                <td class="text-center text-lg text-medium">$<?=$valueCv['price']?></td>
+                <!--<td class="text-center text-lg text-medium">$18.00</td>-->
+                <input type="hidden" value="<?=$_SESSION['ClientID']?>" name="clientID">
+                <input type="hidden" value="<?=$valueC['productID']?>" name="productID">
+                <button role="button" onclick="deltocartOne();"><td class="text-center"><a class="remove-from-cart" data-toggle="tooltip" title="Remove item"><i class="icon-cross"></i></a></td></button>
               </tr>
 <?php 
-  endforeach;endif;endif;
+  endforeach;endif;endforeach;endif;endforeach;endif;endif;
 ?>
 
              <!-- <tr>

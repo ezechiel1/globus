@@ -114,7 +114,7 @@ $all=$db->wProduct($categoryID,$subCategoryID);
                   return false;
                 }
 
-  //the functionS to delete to the cart
+//the functionS to delete to the cart
                 function <?=$delTitle?>{
                   if(XMLHttpRequestObject){
                     XMLHttpRequestObject.open("POST","../class/shop_cartController.php");
